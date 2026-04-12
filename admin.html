@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Nilora Organics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <h2 class="admin-logo">Nilora Admin</h2>
+            <nav class="admin-nav">
+                <a href="#" class="active">Overview</a>
+                <a href="#">Page Builder</a>
+                <a href="#">Products</a>
+                <a href="#">AI Assistant Control</a>
+                <a href="#">Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <h2>Dashboard Overview</h2>
+                <div class="admin-user">Welcome, Admin</div>
+            </header>
+
+            <!-- Dashboard Stats -->
+            <section class="admin-stats">
+                <div class="stat-card">
+                    <h3>Page Views</h3>
+                    <p class="stat-value">12,450</p>
+                </div>
+                <div class="stat-card">
+                    <h3>AI Queries Handled</h3>
+                    <p class="stat-value">842</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Conversion Rate</h3>
+                    <p class="stat-value">4.2%</p>
+                </div>
+            </section>
+
+            <!-- AI Content Copilot Builder -->
+            <section class="admin-section">
+                <h3 class="section-title">AI Content Copilot (Page Builder)</h3>
+                <div class="admin-card">
+                    <h4>Hero Section Text</h4>
+                    <input type="text" value="Unlock Natural Wellness with Pure Blue Tea" class="admin-input">
+                    <button class="btn btn-secondary">Generate Alternative with AI ✨</button>
+                    <button class="btn btn-primary mt-4">Save Changes</button>
+                </div>
+            </section>
+
+            <!-- AI Training Room -->
+            <section class="admin-section mt-4">
+                <h3 class="section-title">AI Assistant Training Room</h3>
+                <div class="admin-card">
+                    <h4>Update AI Knowledge Base</h4>
+                    <textarea class="admin-textarea" rows="4">Current Rules: Suggest Peppermint combo when user mentions anxiety. Recommend 100g pack of Blue Tea for anti-aging skin care.</textarea>
+                    <button class="btn btn-primary mt-4">Deploy Rules to Assistant</button>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

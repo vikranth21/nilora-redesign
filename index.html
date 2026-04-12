@@ -3,170 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nilora Organics — Pure Blue Tea & Wellness</title>
-<meta name="description" content="Discover natural wellness with Nilora Organics. Shop premium Butterfly Pea Flower Blue Tea and Peppermint blends. Free shipping across India.">
-<meta property="og:title" content="Nilora Organics — Pure Blue Tea & Wellness">
-<meta property="og:description" content="Natural wellness in every sip. 100% organic Blue Tea harvested from India's finest farms.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<title>Nilora Organics — Pure Blue Tea & Herbal Wellness</title>
+<meta name="description" content="Shop premium organic Butterfly Pea Flower Blue Tea. Handpicked, 100% natural. Free shipping across India.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div id="toast"></div>
 
-<!-- TOP BAR -->
-<div class="top-bar">🚚 Free Shipping All Over India &nbsp;&bull;&nbsp; 🌿 100% Organic &nbsp;&bull;&nbsp; ⭐ Rated 4.9/5 by 2,400+ Customers</div>
+<!-- Announcement -->
+<div class="announcement-bar">Free Shipping All Over India &nbsp;·&nbsp; 100% Organic &nbsp;·&nbsp; 10,000+ Happy Customers</div>
 
-<!-- HEADER -->
-<header class="smart-header" id="site-header">
-  <div class="header-container">
-    <nav class="nav-links desktop-only">
+<!-- Header -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <nav class="header-nav">
       <a href="#benefits">Benefits</a>
       <a href="#shop">Shop</a>
-      <a href="#reels">Community</a>
+      <a href="#community">Community</a>
       <a href="#story">Our Story</a>
     </nav>
-    <span class="logo-text" onclick="window.scrollTo({top:0,behavior:'smooth'})">Nilora Organics</span>
+    <div class="header-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">Nilora Organics</div>
     <div class="header-actions">
-      <button class="icon-btn" onclick="openSearch()" aria-label="Search">🔍</button>
-      <button class="icon-btn" onclick="toggleCart()" aria-label="Cart" style="position:relative;">
-        🛒 <span class="cart-badge" id="cart-count">0</span>
+      <button class="header-btn" onclick="openSearch()" title="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="header-btn" onclick="toggleCart()" title="Cart" style="position:relative;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-pill" id="cartCount" style="display:none;">0</span>
       </button>
     </div>
   </div>
 </header>
 
-<!-- HERO -->
+<!-- Hero -->
 <section class="hero">
-  <div class="hero-particles" id="particles"></div>
-  <div class="hero-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-badge">✦ &nbsp; Pure · Organic · Handpicked</div>
-    <h1 class="hero-title">Unlock <span>Natural Wellness</span><br>with Pure Blue Tea</h1>
-    <p class="hero-subtitle">Stress relief, glowing skin and a vibrant antioxidant boost — in every mesmerising, magical sip.</p>
-    <div class="hero-ctas">
-      <button class="btn btn-primary btn-lg" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
-        Shop the Collection →
-      </button>
-      <button class="btn btn-ghost btn-lg" onclick="toggleAIChat()">
-        ✨ Get a Recommendation
-      </button>
+  <div class="hero-inner">
+    <div class="hero-tag">Pure · Organic · Handpicked</div>
+    <h1 class="hero-title">Nature's Most <em>Beautiful</em> Tea.</h1>
+    <p class="hero-sub">Butterfly Pea Flower Blue Tea — naturally caffeine-free, rich in antioxidants, and mesmerisingly beautiful in every cup.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-gold btn-lg" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+      <button class="btn btn-ghost btn-lg" onclick="openAI()">Get a Recommendation</button>
     </div>
   </div>
-  <div class="hero-scroll-indicator">
-    <div>↓</div>
-    <div style="margin-top:4px;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">Scroll to explore</div>
+  <div class="hero-stat-bar">
+    <div class="hero-stat"><div class="hero-stat-num">10,000+</div><div class="hero-stat-text">Happy Customers</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">4.9 ★</div><div class="hero-stat-text">Average Rating</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-text">Organic & Natural</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">Free</div><div class="hero-stat-text">Pan-India Shipping</div></div>
   </div>
 </section>
 
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-bar-inner">
-    <div class="trust-item">
-      <span class="trust-icon">🌿</span>
-      <div class="trust-text"><strong>100% Organic</strong><span>No pesticides, ever</span></div>
-    </div>
-    <div class="trust-item">
-      <span class="trust-icon">🤝</span>
-      <div class="trust-text"><strong>10,000+ Happy Customers</strong><span>Across India</span></div>
-    </div>
-    <div class="trust-item">
-      <span class="trust-icon">🚚</span>
-      <div class="trust-text"><strong>Free Shipping</strong><span>On all orders</span></div>
-    </div>
-    <div class="trust-item">
-      <span class="trust-icon">⭐</span>
-      <div class="trust-text"><strong>4.9 / 5 Rating</strong><span>2,400+ verified reviews</span></div>
-    </div>
-    <div class="trust-item">
-      <span class="trust-icon">📦</span>
-      <div class="trust-text"><strong>Ships in 24 Hrs</strong><span>Pan-India delivery</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- BENEFITS -->
+<!-- Benefits -->
 <section id="benefits" class="section">
   <div class="section-inner">
-    <p class="section-label reveal">Why Choose Nilora</p>
-    <h2 class="section-title reveal">What Makes Blue Tea <span>Extraordinary</span></h2>
-    <div class="bento-grid">
-      <div class="bento-card reveal">
-        <span class="bento-emoji">🫐</span>
-        <h3>Rich in Antioxidants</h3>
-        <p>Butterfly Pea Flower is packed with anthocyanin — a powerful antioxidant that fights free radicals and slows the signs of aging.</p>
+    <p class="section-eyebrow">Why Nilora</p>
+    <h2 class="section-title">What Makes Blue Tea So Special</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">✦</div>
+        <h3 class="benefit-title">Rich in Antioxidants</h3>
+        <p class="benefit-text">Loaded with anthocyanin — one of nature's most powerful antioxidants — that fights free radicals and supports healthy aging.</p>
       </div>
-      <div class="bento-card reveal">
-        <span class="bento-emoji">🌙</span>
-        <h3>Caffeine-Free</h3>
-        <p>Perfect for evenings and bedtime rituals. Sleep deeper, wake more refreshed, and maintain your inner calm all day long.</p>
+      <div class="benefit-card">
+        <div class="benefit-icon">◐</div>
+        <h3 class="benefit-title">Caffeine-Free</h3>
+        <p class="benefit-text">Enjoy it morning or night without affecting your sleep. A calming, ritual-ready brew for any time of the day.</p>
       </div>
-      <div class="bento-card reveal">
-        <span class="bento-emoji">✨</span>
-        <h3>Glowing Skin</h3>
-        <p>A natural skin brightener and hydrator. Daily consumption visibly reduces dark spots and promotes radiant, youthful skin.</p>
+      <div class="benefit-card">
+        <div class="benefit-icon">◇</div>
+        <h3 class="benefit-title">Glowing Skin</h3>
+        <p class="benefit-text">Natural skin brightener and hydrator. Daily use visibly reduces dark spots and promotes a radiant, youthful complexion.</p>
       </div>
-      <div class="bento-card reveal">
-        <span class="bento-emoji">🧘</span>
-        <h3>Stress Relief</h3>
-        <p>As a natural adaptogen, Blue Tea calms the nervous system, reduces anxiety, and leaves you feeling centred and focused.</p>
+      <div class="benefit-card">
+        <div class="benefit-icon">〜</div>
+        <h3 class="benefit-title">Stress Relief</h3>
+        <p class="benefit-text">As a natural adaptogen, Blue Tea helps regulate stress, ease anxiety, and settle an overactive nervous system.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SHOP -->
-<section id="shop" class="section products-bg">
+<!-- Shop -->
+<section id="shop" class="section products-section">
   <div class="section-inner">
-    <p class="section-label reveal">Our Collection</p>
-    <h2 class="section-title reveal">Choose Your <span>Perfect Blend</span></h2>
-    <div class="product-grid">
+    <p class="section-eyebrow">Our Collection</p>
+    <h2 class="section-title">Choose Your Perfect Blend</h2>
+    <div class="products-grid">
 
-      <!-- PRODUCT 1 -->
-      <div class="product-card reveal">
-        <div class="product-image-wrap">
-          <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=700&h=500" alt="Butterfly Pea Flower Blue Tea" loading="lazy">
-          <span class="product-badge badge-gold">⭐ Best Seller</span>
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&h=600&q=80" alt="Butterfly Pea Flower Blue Tea" loading="lazy">
+          <span class="product-label label-gold">Best Seller</span>
         </div>
-        <div class="product-info">
+        <div class="product-body">
           <h3 class="product-name">Butterfly Pea Flower Blue Tea</h3>
-          <p class="product-desc">100% handpicked, sun-dried Butterfly Pea Flowers. Watch it magically transform from deep blue to violet with a squeeze of lemon.</p>
-          <div class="price-row">
-            <span class="price" id="price-blue">₹449</span>
-            <span class="price-original" id="orig-blue">₹599</span>
+          <p class="product-desc">Sun-dried, handpicked Butterfly Pea Flowers from organic farms. Brew and watch the water transform into a vivid indigo blue — add lemon to see it turn violet.</p>
+          <div class="product-price-row">
+            <span class="product-price" id="priceBlue">₹449</span>
+            <span class="product-was" id="wasBlue">₹599</span>
           </div>
-          <div class="size-toggles" id="toggles-blue">
-            <button class="size-btn active" onclick="updateVariant('blue',449,599,this,'Butterfly Pea Flower Blue Tea — 50g',1)">50g</button>
-            <button class="size-btn" onclick="updateVariant('blue',749,999,this,'Butterfly Pea Flower Blue Tea — 100g (Pack of 2)',2)">100g × 2</button>
-            <button class="size-btn" onclick="updateVariant('blue',1099,1499,this,'Butterfly Pea Flower Blue Tea — 150g (Pack of 3)',3)">150g × 3</button>
+          <div class="variant-row" id="variantsBlue">
+            <button class="variant-btn active" onclick="setVariant('blue',449,599,'Butterfly Pea Flower Blue Tea — 50g',this)">50g · 100 cups</button>
+            <button class="variant-btn" onclick="setVariant('blue',749,999,'Butterfly Pea Flower Blue Tea — 100g (Pack of 2)',this)">100g × 2 · 200 cups</button>
+            <button class="variant-btn" onclick="setVariant('blue',1099,1499,'Butterfly Pea Flower Blue Tea — 150g (Pack of 3)',this)">150g × 3 · 300 cups</button>
           </div>
           <div class="product-actions">
-            <button class="btn btn-outline" onclick="addToCart('blue')">🛒 Add to Cart</button>
-            <button class="btn btn-dark" onclick="buyNow('blue')">⚡ Buy Now</button>
+            <button class="btn btn-outline" onclick="addToCart('blue')">Add to Cart</button>
+            <button class="btn btn-primary" onclick="buyNow('blue')">Buy Now</button>
           </div>
         </div>
       </div>
 
-      <!-- PRODUCT 2 -->
-      <div class="product-card reveal">
-        <div class="product-image-wrap">
-          <img src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=700&h=500" alt="Peppermint Blue Tea Combo" loading="lazy">
-          <span class="product-badge badge-red">🔥 Sale</span>
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&h=600&q=80" alt="Peppermint Blue Tea Combo" loading="lazy">
+          <span class="product-label label-red">Sale</span>
         </div>
-        <div class="product-info">
+        <div class="product-body">
           <h3 class="product-name">Peppermint + Blue Tea Combo</h3>
-          <p class="product-desc">The perfect wellness duo. Cooling peppermint refreshes your mind while calming blue tea soothes your soul. The ultimate pairing.</p>
-          <div class="price-row">
-            <span class="price" id="price-combo">₹899</span>
-            <span class="price-original" id="orig-combo">₹1,199</span>
+          <p class="product-desc">The ultimate wellness duo. Refreshing peppermint clears your mind while calming blue tea soothes your soul. Perfect morning-to-evening pairing.</p>
+          <div class="product-price-row">
+            <span class="product-price" id="priceCombo">₹899</span>
+            <span class="product-was" id="wasCombo">₹1,199</span>
           </div>
-          <div class="size-toggles" id="toggles-combo">
-            <button class="size-btn active" onclick="updateVariant('combo',899,1199,this,'Peppermint + Blue Tea Combo (Pack of 2)',2)">Pack of 2</button>
+          <div class="variant-row" id="variantsCombo">
+            <button class="variant-btn active" onclick="setVariant('combo',899,1199,'Peppermint + Blue Tea Combo (Pack of 2)',this)">Pack of 2</button>
           </div>
           <div class="product-actions">
-            <button class="btn btn-outline" onclick="addToCart('combo')">🛒 Add to Cart</button>
-            <button class="btn btn-dark" onclick="buyNow('combo')">⚡ Buy Now</button>
+            <button class="btn btn-outline" onclick="addToCart('combo')">Add to Cart</button>
+            <button class="btn btn-primary" onclick="buyNow('combo')">Buy Now</button>
           </div>
         </div>
       </div>
@@ -175,79 +142,81 @@
   </div>
 </section>
 
-<!-- INSTAGRAM REELS -->
-<section id="reels" class="section reels-section">
+<!-- Instagram Reels -->
+<section id="community" class="section reels-section">
   <div class="section-inner">
-    <p class="section-label reveal">Community Love</p>
-    <h2 class="section-title reveal">Real People. <span>Real Results.</span></h2>
+    <p class="section-eyebrow">Community</p>
+    <h2 class="section-title">Real People. Real Results.</h2>
     <div class="reels-grid">
-      <div class="reel-card reveal">
-        <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=400&h=700" class="reel-img" alt="@wellness_with_priya">
-        <div class="reel-play">▶</div>
-        <div class="reel-overlay">
+      <div class="reel-card">
+        <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=400&h=700&q=80" alt="@wellness_with_priya" loading="lazy">
+        <div class="reel-play-btn">▶</div>
+        <div class="reel-info">
           <div class="reel-username">@wellness_with_priya</div>
           <div class="reel-views">45.2k views</div>
         </div>
-        <div class="reel-ig-icon">📷</div>
       </div>
-      <div class="reel-card reveal">
-        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&h=700" class="reel-img" alt="@tea_with_meera">
-        <div class="reel-play">▶</div>
-        <div class="reel-overlay">
+      <div class="reel-card">
+        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&w=400&h=700&q=80" alt="@tea_with_meera" loading="lazy">
+        <div class="reel-play-btn">▶</div>
+        <div class="reel-info">
           <div class="reel-username">@tea_with_meera</div>
           <div class="reel-views">22.1k views</div>
         </div>
-        <div class="reel-ig-icon">📷</div>
       </div>
-      <div class="reel-card reveal">
-        <img src="https://images.unsplash.com/photo-1517867065801-e20f409696b0?auto=format&fit=crop&w=400&h=700" class="reel-img" alt="@healthybowls_india">
-        <div class="reel-play">▶</div>
-        <div class="reel-overlay">
+      <div class="reel-card">
+        <img src="https://images.unsplash.com/photo-1607631568010-a87245c0daf8?auto=format&fit=crop&w=400&h=700&q=80" alt="@healthybowls_india" loading="lazy">
+        <div class="reel-play-btn">▶</div>
+        <div class="reel-info">
           <div class="reel-username">@healthybowls_india</div>
           <div class="reel-views">18.7k views</div>
         </div>
-        <div class="reel-ig-icon">📷</div>
       </div>
     </div>
-    <div style="text-align:center;margin-top:36px;">
-      <a href="https://instagram.com" target="_blank" rel="noopener" class="btn btn-ghost">📸 &nbsp;Follow @NiloraOrganics on Instagram</a>
+    <div style="text-align:center;">
+      <a href="https://instagram.com/niloraorganics" target="_blank" class="btn btn-ghost">Follow @NiloraOrganics on Instagram</a>
     </div>
   </div>
 </section>
 
-<!-- STORY -->
-<section id="story" class="story-section">
-  <div class="story-inner reveal">
-    <p class="section-label">Our Story</p>
-    <h2>Born from a Belief in<br>Nature's Intelligence</h2>
-    <p>Nilora Organics was founded on a simple conviction — that the most powerful remedies have always existed in nature. We handpick every Butterfly Pea Flower from certified organic farms, dried slowly by the sun, and delivered directly to your cup. No shortcuts. No compromises. Just pure, honest tea.</p>
-    <button class="btn btn-ghost btn-lg" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Explore Our Collection →</button>
+<!-- Our Story -->
+<section id="story" class="section story-section">
+  <div class="story-inner">
+    <div class="story-img-wrap">
+      <img src="https://images.unsplash.com/photo-1455853659719-4b521eebc76d?auto=format&fit=crop&w=700&h=900&q=80" alt="Our Story" loading="lazy">
+    </div>
+    <div>
+      <p class="story-eyebrow">Our Story</p>
+      <h2 class="story-title">Born From a Belief in Nature</h2>
+      <p class="story-body">Nilora Organics was founded on a simple conviction — that the most powerful remedies have always existed in nature. We handpick every Butterfly Pea Flower from certified organic farms, dried slowly in open sunlight, preserving every drop of healing magic.</p>
+      <p class="story-body">No shortcuts. No compromises. Just pure, honest, beautiful tea — delivered directly from our farms to your cup.</p>
+      <button class="btn btn-primary btn-lg" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Explore Our Blends</button>
+    </div>
   </div>
 </section>
 
-<!-- NEWSLETTER -->
-<section class="newsletter-section">
-  <div class="newsletter-inner reveal">
-    <h2>Get Your Free Wellness Guide 🌿</h2>
-    <p>Subscribe and receive our exclusive "Blue Tea 30-Day Detox Plan" — completely free.</p>
-    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-      <input type="email" class="newsletter-form input" placeholder="Enter your email address..." required style="flex:1;padding:14px 20px;border:2px solid #e5e7eb;border-radius:50px;font-family:var(--font-sans);font-size:0.9rem;outline:none;">
-      <button class="btn btn-dark" type="submit">Subscribe →</button>
-    </form>
-    <p style="font-size:0.78rem;color:#aaa;margin-top:12px;">No spam. Unsubscribe anytime. 💌</p>
-  </div>
-</section>
+<!-- Newsletter -->
+<div class="nl-section">
+  <p style="font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;font-weight:700;">Free Gift</p>
+  <h2 class="nl-title">Get Our Free 30-Day Wellness Guide</h2>
+  <p class="nl-sub">Subscribe and we'll send you our exclusive Blue Tea Detox Plan — completely free.</p>
+  <form class="nl-form" onsubmit="nlSubmit(event)">
+    <input type="email" class="nl-input" placeholder="Enter your email..." required>
+    <button type="submit" class="btn btn-gold">Subscribe</button>
+  </form>
+  <p style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:14px;">No spam. Unsubscribe anytime.</p>
+</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <span class="footer-logo">Nilora Organics</span>
-      <p class="footer-tagline">Pure, handpicked organic wellness from the heart of India, delivered directly to your cup.</p>
-      <div class="footer-social">
-        <a class="social-btn" href="https://instagram.com" target="_blank" aria-label="Instagram">📸</a>
-        <a class="social-btn" href="https://facebook.com" target="_blank" aria-label="Facebook">💬</a>
-        <a class="social-btn" href="https://wa.me/91" target="_blank" aria-label="WhatsApp">📱</a>
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Nilora Organics</div>
+      <p class="footer-tagline">Pure, handpicked organic wellness from the heart of India — delivered directly to your cup.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link">📸</a>
+        <a href="#" class="footer-social-link">📘</a>
+        <a href="https://wa.me/91" class="footer-social-link">💬</a>
       </div>
     </div>
     <div class="footer-col">
@@ -259,7 +228,7 @@
     <div class="footer-col">
       <h4>Company</h4>
       <a href="#story">About Us</a>
-      <a href="#reels">Community</a>
+      <a href="#community">Community</a>
       <a href="admin.html">Admin Panel</a>
     </div>
     <div class="footer-col">
@@ -267,118 +236,99 @@
       <a href="#">Privacy Policy</a>
       <a href="#">Return Policy</a>
       <a href="#">Terms & Conditions</a>
-      <a href="https://wa.me/91" target="_blank">WhatsApp Us</a>
+      <a href="https://wa.me/91">WhatsApp Us</a>
     </div>
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 Nilora Organics. All rights reserved.</span>
-    <span>Made with ❤️ in India</span>
+    <span>Made with care in India.</span>
   </div>
 </footer>
 
-<!-- AI WIDGET -->
-<div id="ai-assistant-widget">
-  <button class="ai-fab" onclick="toggleAIChat()">
-    <span class="ai-fab-dot"></span>
-    ✨ AI Wellness Guide
+<!-- AI Chat -->
+<div id="ai-widget">
+  <button class="ai-trigger" onclick="toggleAI()">
+    <span class="ai-live-dot"></span>
+    AI Wellness Guide
   </button>
-  <div id="ai-chat-window" class="chat-window hidden">
-    <div class="chat-header">
-      <h4>✨ Nilora Wellness Assistant</h4>
-      <button class="chat-close-btn" onclick="toggleAIChat()">✖</button>
+  <div class="ai-panel closed" id="aiPanel">
+    <div class="ai-panel-header">
+      <h4>Nilora Wellness Guide</h4>
+      <button class="ai-close-btn" onclick="toggleAI()">✕</button>
     </div>
-    <div class="chat-body" id="chat-body">
-      <div class="bot-msg">Hi! 👋 I'm your personal wellness guide. Tell me your health goal — better sleep, glowing skin, or reducing stress?</div>
+    <div class="ai-messages" id="aiMessages">
+      <div class="msg-bot">Hi 👋 I'm your wellness guide. Tell me your health goal — better sleep, glowing skin, or stress relief?</div>
     </div>
-    <div class="chat-input-row">
-      <input type="text" id="ai-input" placeholder="E.g. I want glowing skin...">
-      <button class="chat-send-btn" onclick="handleAIQuery()">➤</button>
+    <div class="ai-input-row">
+      <input type="text" class="ai-input" id="aiInput" placeholder="E.g. I want better sleep…">
+      <button class="ai-send" onclick="sendAI()">→</button>
     </div>
   </div>
 </div>
 
-<!-- CART OVERLAY -->
-<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-<!-- CART DRAWER -->
-<div class="cart-drawer" id="cart-drawer">
-  <div class="cart-header">
-    <h3>Your Cart 🛒</h3>
-    <button class="cart-close" onclick="toggleCart()">✖</button>
+<!-- Cart -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h3>Your Cart</h3>
+    <button class="cart-x" onclick="toggleCart()">✕</button>
   </div>
-  <div class="cart-items" id="cart-items">
-    <div class="cart-empty">
-      <span class="cart-empty-icon">🫖</span>
-      <p>Your cart feels empty.</p>
-      <p style="font-size:0.85rem;">Add a beautiful blend to begin!</p>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty-state">
+      <span>🍃</span>
+      <p>Your cart is empty</p>
+      <p style="font-size:0.82rem;">Browse our blends and add something.</p>
     </div>
   </div>
-  <div class="cart-footer">
+  <div class="cart-foot">
     <div class="cart-total-row">
-      <span class="cart-total-label">Subtotal</span>
-      <span class="cart-total-value" id="cart-total">₹0</span>
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cartTotal">₹0</span>
     </div>
-    <p class="cart-shipping">🚚 Free shipping included on your order!</p>
-    <button class="btn btn-dark w-100" onclick="openCheckout()">Proceed to Checkout →</button>
-    <button class="btn btn-outline w-100 mt-4" onclick="toggleCart()">Continue Shopping</button>
+    <p class="cart-ship-note">✓ Free shipping included on all orders</p>
+    <button class="btn btn-primary btn-full" onclick="openCheckout()">Proceed to Checkout</button>
+    <button class="btn btn-outline btn-full" style="margin-top:10px;" onclick="toggleCart()">Continue Shopping</button>
   </div>
 </div>
 
-<!-- SEARCH MODAL -->
-<div class="modal" id="search-modal">
-  <div class="modal-backdrop" onclick="closeSearch()"></div>
+<!-- Search Modal -->
+<div class="modal-wrap" id="searchModal">
+  <div class="modal-veil" onclick="closeSearch()"></div>
   <div class="modal-box">
-    <button class="modal-close" onclick="closeSearch()">✖</button>
-    <h3 style="font-family:var(--font-serif);color:var(--primary);font-size:1.4rem;">Search Products</h3>
-    <input type="text" id="search-input" class="search-input" placeholder="Try 'sleep', 'skin', 'blue tea', 'stress'..." oninput="runSearch(this.value)">
-    <div id="search-results"></div>
+    <button class="modal-close-btn" onclick="closeSearch()">✕</button>
+    <h3 class="modal-title">Search</h3>
+    <input type="text" class="search-field" id="searchInput" placeholder="Try 'sleep', 'skin', 'stress'…" oninput="doSearch(this.value)" autofocus>
+    <div id="searchResults"></div>
   </div>
 </div>
 
-<!-- CHECKOUT MODAL -->
-<div class="modal" id="checkout-modal">
-  <div class="modal-backdrop" onclick="closeCheckout()"></div>
-  <div class="modal-box checkout-box">
-    <button class="modal-close" onclick="closeCheckout()">✖</button>
-    <h3>🔒 Secure Checkout</h3>
-    <div class="form-grid">
-      <input class="form-input" placeholder="First Name" id="co-fname">
-      <input class="form-input" placeholder="Last Name" id="co-lname">
-      <input class="form-input full" placeholder="Email Address" id="co-email" type="email">
-      <input class="form-input full" placeholder="Phone Number" id="co-phone" type="tel">
-      <input class="form-input full" placeholder="Full Delivery Address" id="co-addr">
-      <input class="form-input" placeholder="City" id="co-city">
-      <input class="form-input" placeholder="PIN Code" id="co-pin">
+<!-- Checkout Modal -->
+<div class="modal-wrap" id="checkoutModal">
+  <div class="modal-veil" onclick="closeCheckout()"></div>
+  <div class="modal-box co-box">
+    <button class="modal-close-btn" onclick="closeCheckout()">✕</button>
+    <h3 class="modal-title">Checkout</h3>
+    <div class="co-grid">
+      <input class="co-input" placeholder="First Name" id="coFirst">
+      <input class="co-input" placeholder="Last Name" id="coLast">
+      <input class="co-input co-full" placeholder="Email Address" id="coEmail" type="email">
+      <input class="co-input co-full" placeholder="Phone Number" id="coPhone" type="tel">
+      <input class="co-input co-full" placeholder="Delivery Address" id="coAddr">
+      <input class="co-input" placeholder="City" id="coCity">
+      <input class="co-input" placeholder="PIN Code" id="coPin">
     </div>
-    <h4 style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:14px;">Choose Payment Method</h4>
-    <div class="payment-options">
-      <label class="payment-option">
-        <input type="radio" name="payment" value="upi" checked>
-        <span class="payment-icon">💡</span>
-        <div class="payment-label"><strong>UPI / QR Code</strong><span>PhonePe, Paytm, Google Pay, BHIM</span></div>
-      </label>
-      <label class="payment-option">
-        <input type="radio" name="payment" value="card">
-        <span class="payment-icon">💳</span>
-        <div class="payment-label"><strong>Credit / Debit Card</strong><span>Visa, Mastercard, RuPay</span></div>
-      </label>
-      <label class="payment-option">
-        <input type="radio" name="payment" value="cod">
-        <span class="payment-icon">💵</span>
-        <div class="payment-label"><strong>Cash on Delivery</strong><span>Pay when your order arrives</span></div>
-      </label>
-      <label class="payment-option">
-        <input type="radio" name="payment" value="netbanking">
-        <span class="payment-icon">🏦</span>
-        <div class="payment-label"><strong>Net Banking</strong><span>All major Indian banks supported</span></div>
-      </label>
+    <h4 style="font-size:0.9rem;font-weight:700;color:var(--green-deep);margin-bottom:14px;">Payment Method</h4>
+    <label class="pay-option"><input type="radio" name="pay" value="upi" checked><span class="pay-icon">💳</span><div class="pay-label"><strong>UPI / QR Code</strong><span>PhonePe, Paytm, Google Pay</span></div></label>
+    <label class="pay-option"><input type="radio" name="pay" value="card"><span class="pay-icon">💳</span><div class="pay-label"><strong>Credit / Debit Card</strong><span>Visa, Mastercard, RuPay</span></div></label>
+    <label class="pay-option"><input type="radio" name="pay" value="cod"><span class="pay-icon">📦</span><div class="pay-label"><strong>Cash on Delivery</strong><span>Pay when you receive the order</span></div></label>
+    <label class="pay-option"><input type="radio" name="pay" value="nb"><span class="pay-icon">🏦</span><div class="pay-label"><strong>Net Banking</strong><span>All major Indian banks</span></div></label>
+    <div class="co-summary">
+      <div class="co-row"><span>Subtotal</span><span id="coSubtotal">₹0</span></div>
+      <div class="co-row"><span>Shipping</span><span style="color:var(--green-soft);font-weight:600;">Free</span></div>
+      <div class="co-row co-total"><span>Total</span><span id="coTotal">₹0</span></div>
     </div>
-    <div class="checkout-summary">
-      <div class="checkout-row"><span>Subtotal</span><span id="checkout-total">₹0</span></div>
-      <div class="checkout-row"><span>Shipping</span><span style="color:#22c55e;font-weight:600;">FREE 🎉</span></div>
-      <div class="checkout-row total"><span>Total</span><span id="checkout-total-final">₹0</span></div>
-    </div>
-    <button class="btn btn-dark w-100" style="font-size:1rem;padding:16px;" onclick="placeOrder()">🔒 Place Order Securely</button>
-    <p style="font-size:0.75rem;color:#aaa;text-align:center;margin-top:12px;">🛡️ Your payment information is 100% encrypted and secure.</p>
+    <button class="btn btn-primary btn-full btn-lg" onclick="placeOrder()">Place Order Securely</button>
+    <p class="co-secure-note">🔒 Your payment information is encrypted and secure.</p>
   </div>
 </div>
 

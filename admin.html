@@ -3,437 +3,350 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard — Nilora Organics</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<title>Admin — Nilora Organics</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="admin-body">
 <div id="toast"></div>
 
-<div class="admin-layout">
+<div class="admin-wrap">
 
   <!-- SIDEBAR -->
-  <aside class="admin-sidebar">
-    <div class="admin-sidebar-header">
-      <div class="admin-logo-text">Nilora Organics</div>
-      <div class="admin-logo-sub">Admin Dashboard</div>
+  <aside class="admin-aside">
+    <div class="aside-brand">
+      <div class="brand-name">Nilora Organics</div>
+      <div class="brand-role">Admin Dashboard</div>
     </div>
-    <nav class="admin-nav" id="admin-nav">
-      <button class="admin-nav-btn active" onclick="switchTab('overview',this)">📊 &nbsp;Overview</button>
-      <button class="admin-nav-btn" onclick="switchTab('content',this)">✏️ &nbsp;Page Content</button>
-      <button class="admin-nav-btn" onclick="switchTab('products',this)">📦 &nbsp;Products</button>
-      <button class="admin-nav-btn" onclick="switchTab('payments',this)">💳 &nbsp;Payments</button>
-      <button class="admin-nav-btn" onclick="switchTab('courier',this)">🚚 &nbsp;Courier Services</button>
-      <button class="admin-nav-btn" onclick="switchTab('reels',this)">📱 &nbsp;Instagram Reels</button>
-      <button class="admin-nav-btn" onclick="switchTab('testimonials',this)">⭐ &nbsp;Testimonials</button>
-      <button class="admin-nav-btn" onclick="switchTab('orders',this)">🧾 &nbsp;Orders</button>
-      <button class="admin-nav-btn" onclick="switchTab('seo',this)">🔍 &nbsp;SEO Settings</button>
-      <button class="admin-nav-btn" onclick="switchTab('ai',this)">🤖 &nbsp;AI Assistant</button>
+    <nav class="aside-nav">
+      <button class="nav-item active" onclick="go('overview',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Overview
+      </button>
+      <button class="nav-item" onclick="go('content',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4z"/></svg>
+        Page Content
+      </button>
+      <button class="nav-item" onclick="go('products',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Products
+      </button>
+      <button class="nav-item" onclick="go('payments',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Payments
+      </button>
+      <button class="nav-item" onclick="go('courier',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Courier Services
+      </button>
+      <button class="nav-item" onclick="go('reels',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        Instagram Reels
+      </button>
+      <button class="nav-item" onclick="go('testimonials',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Testimonials
+      </button>
+      <button class="nav-item" onclick="go('orders',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Orders
+      </button>
+      <button class="nav-item" onclick="go('seo',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        SEO Settings
+      </button>
+      <button class="nav-item" onclick="go('ai',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1a1 1 0 011 1v3a1 1 0 01-1 1h-1v1a2 2 0 01-2 2H5a2 2 0 01-2-2v-1H2a1 1 0 01-1-1v-3a1 1 0 011-1h1a7 7 0 017-7h1V5.73A2 2 0 0110 4a2 2 0 012-2z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="16.5" cy="14.5" r="1.5"/></svg>
+        AI Assistant
+      </button>
     </nav>
-    <div class="admin-sidebar-footer">
-      <a href="index.html" class="admin-view-store">← &nbsp;View Live Store</a>
+    <div class="aside-footer">
+      <a href="index.html" class="aside-store-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        View Live Store
+      </a>
     </div>
   </aside>
 
   <!-- MAIN -->
-  <main class="admin-main">
+  <div class="admin-main">
     <div class="admin-topbar">
-      <h2 id="tab-title">Dashboard Overview</h2>
-      <div class="admin-status"><span class="status-dot"></span> Store Live &nbsp;|&nbsp; vikranth21</div>
+      <h2 class="admin-topbar-title" id="pageTitle">Overview</h2>
+      <div class="admin-live-badge"><span class="live-dot"></span> Store Live</div>
     </div>
 
     <div class="admin-content">
 
       <!-- OVERVIEW -->
-      <div id="tab-overview" class="tab-content active">
-        <div class="admin-stats-grid">
-          <div class="admin-stat-card">
-            <div class="admin-stat-icon">🧾</div>
-            <div class="admin-stat-label">Total Orders</div>
-            <div class="admin-stat-value">148</div>
-            <div class="admin-stat-delta delta-up">↑ +12% this week</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-icon">💰</div>
-            <div class="admin-stat-label">Revenue (Month)</div>
-            <div class="admin-stat-value">₹1.32L</div>
-            <div class="admin-stat-delta delta-up">↑ +8% vs last month</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-icon">🤖</div>
-            <div class="admin-stat-label">AI Queries</div>
-            <div class="admin-stat-value">842</div>
-            <div class="admin-stat-delta delta-up">73% converted to orders</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-icon">📈</div>
-            <div class="admin-stat-label">Conversion Rate</div>
-            <div class="admin-stat-value">4.2%</div>
-            <div class="admin-stat-delta delta-up">↑ Industry avg: 2.1%</div>
-          </div>
+      <div id="tab-overview" class="tab-view active">
+        <div class="stats-row">
+          <div class="stat-box"><div class="stat-box-icon">Total Orders</div><div class="stat-box-val">148</div><div class="stat-box-delta delta-up">↑ +12% this week</div></div>
+          <div class="stat-box"><div class="stat-box-icon">Revenue</div><div class="stat-box-val">₹1.32L</div><div class="stat-box-delta delta-up">↑ +8% vs last month</div></div>
+          <div class="stat-box"><div class="stat-box-icon">AI Queries</div><div class="stat-box-val">842</div><div class="stat-box-delta delta-up">73% converted</div></div>
+          <div class="stat-box"><div class="stat-box-icon">Conversion</div><div class="stat-box-val">4.2%</div><div class="stat-box-delta delta-neutral">Industry avg 2.1%</div></div>
         </div>
-        <div class="admin-card">
-          <h4>Recent Orders</h4>
-          <table class="admin-table">
-            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Amount</th><th>Payment</th><th>Courier</th><th>Status</th></tr></thead>
+        <div class="a-card">
+          <div class="a-card-title">Recent Orders</div>
+          <div class="a-card-sub">Latest transactions from your store</div>
+          <table class="a-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Amount</th><th>Payment</th><th>Status</th></tr></thead>
             <tbody>
-              <tr><td>NLR-AB12CD</td><td>Priya S.</td><td>Blue Tea 100g Pack</td><td>₹749</td><td>UPI</td><td>Shiprocket</td><td><span class="tag tag-green">Shipped</span></td></tr>
-              <tr><td>NLR-XY98ZW</td><td>Arjun M.</td><td>Peppermint Combo</td><td>₹899</td><td>COD</td><td>Delhivery</td><td><span class="tag tag-yellow">Processing</span></td></tr>
-              <tr><td>NLR-MN44PQ</td><td>Sneha R.</td><td>Blue Tea 150g Pack</td><td>₹1,099</td><td>Card</td><td>Bluedart</td><td><span class="tag tag-blue">Delivered</span></td></tr>
+              <tr><td>NLR-AB12CD</td><td>Priya S.</td><td>Blue Tea 100g Pack</td><td>₹749</td><td>UPI</td><td><span class="badge badge-green">Shipped</span></td></tr>
+              <tr><td>NLR-XY98ZW</td><td>Arjun M.</td><td>Peppermint Combo</td><td>₹899</td><td>COD</td><td><span class="badge badge-amber">Processing</span></td></tr>
+              <tr><td>NLR-MN44PQ</td><td>Sneha R.</td><td>Blue Tea 150g Pack</td><td>₹1,099</td><td>Card</td><td><span class="badge badge-blue">Delivered</span></td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
       <!-- PAGE CONTENT -->
-      <div id="tab-content" class="tab-content">
-        <div class="admin-card">
-          <h4>Hero Section</h4>
-          <span class="admin-label">Hero Title</span>
-          <input type="text" class="admin-input" value="Unlock Natural Wellness with Pure Blue Tea">
-          <span class="admin-label">Hero Subtitle</span>
-          <input type="text" class="admin-input" value="Stress relief, glowing skin and a vibrant antioxidant boost — in every mesmerising, magical sip.">
-          <span class="admin-label">CTA Button Text</span>
-          <input type="text" class="admin-input" value="Shop the Collection →">
-          <button class="btn btn-dark" onclick="adminSave('Hero section')">💾 Save Hero</button>
+      <div id="tab-content" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">Hero Section</div>
+          <div class="a-card-sub">Edit the main banner text shown to visitors</div>
+          <span class="a-label">Headline</span>
+          <input type="text" class="a-input" value="Nature's Most Beautiful Tea.">
+          <span class="a-label">Sub-headline</span>
+          <input type="text" class="a-input" value="Butterfly Pea Flower Blue Tea — naturally caffeine-free and rich in antioxidants.">
+          <span class="a-label">Primary Button Text</span>
+          <input type="text" class="a-input" value="Shop Now">
+          <button class="btn btn-primary" onclick="save('Hero')">Save Changes</button>
         </div>
-        <div class="admin-card">
-          <h4>Section Visibility</h4>
-          <div class="settings-row"><div class="settings-row-label"><strong>Benefits Section</strong><span>Bento cards showing wellness benefits</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Product / Shop Section</strong><span>Blue Tea & Peppermint product cards</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Instagram Reels Section</strong><span>Social proof and community reels</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Our Story Section</strong><span>Brand background narrative</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Newsletter Section</strong><span>Email capture with wellness guide offer</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <button class="btn btn-dark" style="margin-top:16px;" onclick="adminSave('Section visibility')">💾 Save Visibility</button>
+        <div class="a-card">
+          <div class="a-card-title">Section Visibility</div>
+          <div class="a-card-sub">Show or hide sections on the homepage</div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Benefits Section</strong><small>The 4 benefit cards (antioxidants, caffeine-free…)</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Products / Shop Section</strong><small>Blue Tea and Peppermint Combo cards</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Community / Reels Section</strong><small>Instagram reel wall and social proof</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Our Story Section</strong><small>Brand narrative with image</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Newsletter Section</strong><small>Email capture with wellness guide offer</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <button class="btn btn-primary" style="margin-top:18px;" onclick="save('Section visibility')">Save</button>
         </div>
       </div>
 
       <!-- PRODUCTS -->
-      <div id="tab-products" class="tab-content">
-        <div class="admin-card">
-          <h4>Blue Tea — Variants & Pricing</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-            <div><span class="admin-label">50g Price (₹)</span><input type="number" class="admin-input" value="449"></div>
-            <div><span class="admin-label">100g Pack Price (₹)</span><input type="number" class="admin-input" value="749"></div>
-            <div><span class="admin-label">150g Pack Price (₹)</span><input type="number" class="admin-input" value="1099"></div>
-            <div><span class="admin-label">50g Original Price (₹)</span><input type="number" class="admin-input" value="599"></div>
-            <div><span class="admin-label">100g Original Price (₹)</span><input type="number" class="admin-input" value="999"></div>
-            <div><span class="admin-label">150g Original Price (₹)</span><input type="number" class="admin-input" value="1499"></div>
+      <div id="tab-products" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">Blue Tea — Pricing</div>
+          <div class="a-card-sub">Update sale price and original price per variant</div>
+          <div class="a-grid-3" style="gap:12px;">
+            <div><span class="a-label">50g Sale Price</span><input type="number" class="a-input" value="449"></div>
+            <div><span class="a-label">100g Pack Sale Price</span><input type="number" class="a-input" value="749"></div>
+            <div><span class="a-label">150g Pack Sale Price</span><input type="number" class="a-input" value="1099"></div>
+            <div><span class="a-label">50g Original Price</span><input type="number" class="a-input" value="599"></div>
+            <div><span class="a-label">100g Original Price</span><input type="number" class="a-input" value="999"></div>
+            <div><span class="a-label">150g Original Price</span><input type="number" class="a-input" value="1499"></div>
           </div>
-          <button class="btn btn-dark mt-4" onclick="adminSave('Blue Tea pricing')">💾 Save Pricing</button>
+          <button class="btn btn-primary" onclick="save('Blue Tea pricing')">Save Pricing</button>
         </div>
-        <div class="admin-card">
-          <h4>Peppermint Combo — Pricing</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-            <div><span class="admin-label">Sale Price (₹)</span><input type="number" class="admin-input" value="899"></div>
-            <div><span class="admin-label">Original Price (₹)</span><input type="number" class="admin-input" value="1199"></div>
+        <div class="a-card">
+          <div class="a-card-title">Peppermint Combo — Pricing</div>
+          <div class="a-grid-2" style="gap:12px;">
+            <div><span class="a-label">Sale Price</span><input type="number" class="a-input" value="899"></div>
+            <div><span class="a-label">Original Price</span><input type="number" class="a-input" value="1199"></div>
           </div>
-          <button class="btn btn-dark mt-4" onclick="adminSave('Combo pricing')">💾 Save Pricing</button>
+          <button class="btn btn-primary" onclick="save('Combo pricing')">Save Pricing</button>
         </div>
       </div>
 
       <!-- PAYMENTS -->
-      <div id="tab-payments" class="tab-content">
-        <div class="admin-card">
-          <h4>Payment Methods</h4>
-          <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:20px;">Enable or disable payment options shown at checkout.</p>
-
-          <div class="service-card enabled" id="pay-upi">
-            <div class="service-card-left">
-              <span class="service-icon">💡</span>
-              <div><div class="service-name">UPI / QR Code</div><div class="service-desc">PhonePe, Paytm, Google Pay, BHIM</div></div>
-            </div>
-            <label class="toggle-switch"><input type="checkbox" checked onchange="this.closest('.service-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
-          </div>
-
-          <div class="service-card enabled">
-            <div class="service-card-left">
-              <span class="service-icon">💳</span>
-              <div><div class="service-name">Credit / Debit Card</div><div class="service-desc">Visa, Mastercard, RuPay</div></div>
-            </div>
-            <label class="toggle-switch"><input type="checkbox" checked onchange="this.closest('.service-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
-          </div>
-
-          <div class="service-card enabled">
-            <div class="service-card-left">
-              <span class="service-icon">💵</span>
-              <div><div class="service-name">Cash on Delivery</div><div class="service-desc">Pay when the order arrives</div></div>
-            </div>
-            <label class="toggle-switch"><input type="checkbox" checked onchange="this.closest('.service-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
-          </div>
-
-          <div class="service-card">
-            <div class="service-card-left">
-              <span class="service-icon">🏦</span>
-              <div><div class="service-name">Net Banking</div><div class="service-desc">All major Indian banks</div></div>
-            </div>
-            <label class="toggle-switch"><input type="checkbox" onchange="this.closest('.service-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
-          </div>
+      <div id="tab-payments" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">Payment Methods</div>
+          <div class="a-card-sub">Enable or disable payment options shown at checkout</div>
+          <div class="svc-card enabled"><div class="svc-left"><div class="svc-icon">💡</div><div><div class="svc-name">UPI / QR Code</div><div class="svc-desc">PhonePe, Paytm, Google Pay, BHIM</div></div></div><label class="toggle-wrap"><input type="checkbox" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-card enabled"><div class="svc-left"><div class="svc-icon">💳</div><div><div class="svc-name">Credit / Debit Card</div><div class="svc-desc">Visa, Mastercard, RuPay</div></div></div><label class="toggle-wrap"><input type="checkbox" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-card enabled"><div class="svc-left"><div class="svc-icon">📦</div><div><div class="svc-name">Cash on Delivery</div><div class="svc-desc">Pay when the order arrives</div></div></div><label class="toggle-wrap"><input type="checkbox" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-card"><div class="svc-left"><div class="svc-icon">🏦</div><div><div class="svc-name">Net Banking</div><div class="svc-desc">All major Indian banks</div></div></div><label class="toggle-wrap"><input type="checkbox" onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
         </div>
-
-        <div class="admin-card">
-          <h4>Razorpay Gateway Integration</h4>
-          <span class="admin-label">API Key ID</span>
-          <input type="text" class="admin-input" placeholder="rzp_live_XXXXXXXXXXXX">
-          <span class="admin-label">API Secret Key</span>
-          <input type="password" class="admin-input" placeholder="••••••••••••••••">
-          <span class="admin-label">Webhook URL</span>
-          <input type="text" class="admin-input" value="https://vikranth21.github.io/nilora-redesign/webhook">
-          <button class="btn btn-dark mt-4" onclick="adminSave('Razorpay settings')">💾 Save Gateway Settings</button>
+        <div class="a-card">
+          <div class="a-card-title">Razorpay Gateway</div>
+          <div class="a-card-sub">Connect your Razorpay account to accept online payments</div>
+          <span class="a-label">API Key ID</span><input type="text" class="a-input" placeholder="rzp_live_XXXXXXXXXXXX">
+          <span class="a-label">API Secret Key</span><input type="password" class="a-input" placeholder="••••••••••••••••">
+          <span class="a-label">Webhook URL</span><input type="text" class="a-input" value="https://vikranth21.github.io/nilora-redesign/webhook">
+          <button class="btn btn-primary" onclick="save('Razorpay')">Save Gateway Settings</button>
         </div>
       </div>
 
       <!-- COURIER -->
-      <div id="tab-courier" class="tab-content">
-        <div class="admin-card">
-          <h4>Courier Partners</h4>
-          <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:20px;">Connect courier services for automated shipping and live tracking.</p>
+      <div id="tab-courier" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">Courier Partners</div>
+          <div class="a-card-sub">Connect shipping providers for automated processing and tracking</div>
 
-          <div class="service-card enabled">
-            <div class="service-card-left">
-              <span class="service-icon">🟠</span>
-              <div><div class="service-name">Shiprocket</div><div class="service-desc">India's largest shipping aggregator — Bluedart, Delhivery, DTDC & 17 more</div></div>
-            </div>
-            <label class="toggle-switch"><input type="checkbox" checked onchange="toggleServicePanel('shiprocket-panel',this.checked)"><span class="toggle-slider"></span></label>
-          </div>
-          <div id="shiprocket-panel" class="service-settings">
-            <span class="admin-label">Shiprocket Email</span>
-            <input type="email" class="admin-input" placeholder="your@email.com">
-            <span class="admin-label">Shiprocket Password</span>
-            <input type="password" class="admin-input" placeholder="••••••••">
-            <span class="admin-label">Pickup Warehouse PIN Code</span>
-            <input type="text" class="admin-input" placeholder="560001">
-            <span class="admin-label">Default Courier Partner</span>
-            <select class="admin-select"><option>Auto-Select Cheapest</option><option>Bluedart</option><option>Delhivery</option><option>DTDC</option><option>FedEx India</option></select>
-            <button class="btn btn-dark" onclick="adminSave('Shiprocket')">🔗 Connect Shiprocket</button>
+          <div class="svc-card enabled"><div class="svc-left"><div class="svc-icon">🟠</div><div><div class="svc-name">Shiprocket</div><div class="svc-desc">India's #1 aggregator — Bluedart, Delhivery, DTDC and 17 more</div></div></div><label class="toggle-wrap"><input type="checkbox" checked onchange="toggle('shiprocket',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-panel" id="shiprocket">
+            <span class="a-label">Shiprocket Email</span><input type="email" class="a-input" placeholder="your@email.com">
+            <span class="a-label">Password</span><input type="password" class="a-input" placeholder="••••••••">
+            <span class="a-label">Warehouse PIN Code</span><input type="text" class="a-input" placeholder="560001">
+            <span class="a-label">Default Courier</span><select class="a-select"><option>Auto — Cheapest Available</option><option>Bluedart</option><option>Delhivery</option><option>DTDC</option><option>FedEx India</option></select>
+            <button class="btn btn-primary btn-sm" onclick="save('Shiprocket')">Connect Shiprocket</button>
           </div>
 
-          <div class="service-card" style="margin-top:12px;">
-            <div class="service-card-left">
-              <span class="service-icon">🔵</span>
-              <div><div class="service-name">Delhivery Direct</div><div class="service-desc">Express delivery — pan-India in 2-3 days</div></div>
-            </div>
-            <label class="toggle-switch"><input type="checkbox" onchange="toggleServicePanel('delhivery-panel',this.checked);this.closest('.service-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
-          </div>
-          <div id="delhivery-panel" class="service-settings" style="display:none;">
-            <span class="admin-label">Delhivery API Token</span>
-            <input type="text" class="admin-input" placeholder="Delhivery API Token">
-            <button class="btn btn-dark" onclick="adminSave('Delhivery')">🔗 Connect Delhivery</button>
+          <div class="svc-card" style="margin-top:10px;"><div class="svc-left"><div class="svc-icon">🔵</div><div><div class="svc-name">Delhivery Direct</div><div class="svc-desc">Express pan-India delivery in 2–3 days</div></div></div><label class="toggle-wrap"><input type="checkbox" onchange="toggle('delhivery',this.checked);this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-panel" id="delhivery" style="display:none;">
+            <span class="a-label">API Token</span><input type="text" class="a-input" placeholder="Delhivery API Token">
+            <button class="btn btn-primary btn-sm" onclick="save('Delhivery')">Connect Delhivery</button>
           </div>
 
-          <div class="service-card" style="margin-top:12px;">
-            <div class="service-card-left">
-              <span class="service-icon">🟡</span>
-              <div><div class="service-name">Bluedart Premium</div><div class="service-desc">Premium express deliveries — reliable and widespread</div></div>
-            </div>
-            <label class="toggle-switch"><input type="checkbox" onchange="toggleServicePanel('bluedart-panel',this.checked);this.closest('.service-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
-          </div>
-          <div id="bluedart-panel" class="service-settings" style="display:none;">
-            <span class="admin-label">Bluedart Login ID</span>
-            <input type="text" class="admin-input" placeholder="Bluedart Login ID">
-            <span class="admin-label">API License Key</span>
-            <input type="text" class="admin-input" placeholder="License Key">
-            <button class="btn btn-dark" onclick="adminSave('Bluedart')">🔗 Connect Bluedart</button>
+          <div class="svc-card" style="margin-top:10px;"><div class="svc-left"><div class="svc-icon">🟡</div><div><div class="svc-name">Bluedart Premium</div><div class="svc-desc">Reliable premium express courier — widespread coverage</div></div></div><label class="toggle-wrap"><input type="checkbox" onchange="toggle('bluedart',this.checked);this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-panel" id="bluedart" style="display:none;">
+            <span class="a-label">Login ID</span><input type="text" class="a-input" placeholder="Bluedart Login ID">
+            <span class="a-label">License Key</span><input type="text" class="a-input" placeholder="License Key">
+            <button class="btn btn-primary btn-sm" onclick="save('Bluedart')">Connect Bluedart</button>
           </div>
         </div>
-
-        <div class="admin-card">
-          <h4>Shipping Rules</h4>
-          <div class="settings-row"><div class="settings-row-label"><strong>Free Shipping (All Orders)</strong><span>Apply free shipping to every order automatically</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Free Threshold (₹)</strong><span>Apply free shipping only above this amount</span></div><input type="number" style="width:120px;padding:8px 12px;border:1.5px solid #e5e7eb;border-radius:8px;" value="499"></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Estimated Delivery Time</strong><span>Shown on checkout & order confirmation</span></div><select style="padding:8px 12px;border:1.5px solid #e5e7eb;border-radius:8px;"><option>3-5 Business Days</option><option>5-7 Business Days</option><option>7-10 Business Days</option></select></div>
-          <button class="btn btn-dark" style="margin-top:20px;" onclick="adminSave('Shipping rules')">💾 Save Shipping Rules</button>
+        <div class="a-card">
+          <div class="a-card-title">Shipping Rules</div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Free Shipping on All Orders</strong><small>Automatically waive shipping fees</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Free Shipping Threshold (₹)</strong><small>Apply only when cart exceeds this amount</small></div><input type="number" style="width:110px;padding:8px 12px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:inherit;" value="499"></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Estimated Delivery Time</strong><small>Displayed at checkout</small></div><select style="padding:8px 12px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:inherit;"><option>3–5 Business Days</option><option>5–7 Business Days</option><option>7–10 Business Days</option></select></div>
+          <button class="btn btn-primary" style="margin-top:18px;" onclick="save('Shipping rules')">Save Rules</button>
         </div>
       </div>
 
       <!-- REELS -->
-      <div id="tab-reels" class="tab-content">
-        <div class="admin-card">
-          <h4>Instagram Connection</h4>
-          <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px;">Connect your Instagram Business profile to auto-import and display reels on the homepage.</p>
-          <span class="admin-label">Instagram Handle / Page ID</span>
-          <input type="text" class="admin-input" placeholder="@niloraorganics">
-          <span class="admin-label">Meta API Access Token</span>
-          <input type="text" class="admin-input" placeholder="Paste your Meta Graph API token...">
-          <div style="display:flex;gap:12px;flex-wrap:wrap;">
-            <button class="btn btn-dark" onclick="adminSave('Instagram connected')">🔗 Connect Instagram</button>
-            <button class="btn btn-outline" onclick="adminSave('Reels synced')">🔄 Sync Latest Reels</button>
+      <div id="tab-reels" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">Instagram Connection</div>
+          <div class="a-card-sub">Connect your Instagram Business account to auto-import reels</div>
+          <span class="a-label">Instagram Handle</span><input type="text" class="a-input" placeholder="@niloraorganics">
+          <span class="a-label">Meta Graph API Token</span><input type="text" class="a-input" placeholder="Paste token here">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="save('Instagram')">Connect Instagram</button>
+            <button class="btn btn-outline" onclick="save('Reels synced')">Sync Latest Reels</button>
           </div>
         </div>
-        <div class="admin-card">
-          <h4>Featured Homepage Reels (3 shown)</h4>
-          <div id="reels-list">
-            <div class="reel-admin-row">
-              <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=80&h=80" class="reel-admin-thumb" alt="Reel 1">
-              <div class="reel-admin-info"><strong>@wellness_with_priya</strong><small>Reel · 45.2k views · 2 days ago</small></div>
-              <span class="tag tag-green">Featured</span>
-              <button class="btn btn-outline btn-sm" onclick="this.closest('.reel-admin-row').remove();showToast('Reel removed')">Remove</button>
-            </div>
-            <div class="reel-admin-row">
-              <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=80&h=80" class="reel-admin-thumb" alt="Reel 2">
-              <div class="reel-admin-info"><strong>@tea_with_meera</strong><small>Reel · 22.1k views · 5 days ago</small></div>
-              <span class="tag tag-green">Featured</span>
-              <button class="btn btn-outline btn-sm" onclick="this.closest('.reel-admin-row').remove();showToast('Reel removed')">Remove</button>
-            </div>
-            <div class="reel-admin-row">
-              <img src="https://images.unsplash.com/photo-1517867065801-e20f409696b0?auto=format&fit=crop&w=80&h=80" class="reel-admin-thumb" alt="Reel 3">
-              <div class="reel-admin-info"><strong>@healthybowls_india</strong><small>Reel · 18.7k views · 1 week ago</small></div>
-              <span class="tag tag-green">Featured</span>
-              <button class="btn btn-outline btn-sm" onclick="this.closest('.reel-admin-row').remove();showToast('Reel removed')">Remove</button>
-            </div>
+        <div class="a-card">
+          <div class="a-card-title">Featured Reels</div>
+          <div class="a-card-sub">Select which 3 reels appear on the homepage</div>
+          <div id="reelsList">
+            <div class="reel-row"><img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=80&h=80" class="reel-thumb" alt="R1"><div class="reel-info"><strong>@wellness_with_priya</strong><small>45.2k views · 2 days ago</small></div><span class="badge badge-green">Featured</span><button class="btn btn-outline btn-sm" style="margin-left:8px;" onclick="this.closest('.reel-row').remove();save('Reel removed')">Remove</button></div>
+            <div class="reel-row"><img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&w=80&h=80" class="reel-thumb" alt="R2"><div class="reel-info"><strong>@tea_with_meera</strong><small>22.1k views · 5 days ago</small></div><span class="badge badge-green">Featured</span><button class="btn btn-outline btn-sm" style="margin-left:8px;" onclick="this.closest('.reel-row').remove();save('Reel removed')">Remove</button></div>
+            <div class="reel-row"><img src="https://images.unsplash.com/photo-1607631568010-a87245c0daf8?auto=format&fit=crop&w=80&h=80" class="reel-thumb" alt="R3"><div class="reel-info"><strong>@healthybowls_india</strong><small>18.7k views · 1 week ago</small></div><span class="badge badge-green">Featured</span><button class="btn btn-outline btn-sm" style="margin-left:8px;" onclick="this.closest('.reel-row').remove();save('Reel removed')">Remove</button></div>
           </div>
-          <div style="margin-top:16px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;">
-            <div style="flex:1;min-width:200px;">
-              <span class="admin-label">Add Instagram Reel URL</span>
-              <input type="text" class="admin-input" id="new-reel-url" placeholder="https://instagram.com/reel/...">
-            </div>
-            <button class="btn btn-dark mb-4" onclick="addReel()">➕ Add Reel</button>
+          <div style="display:flex;gap:10px;align-items:flex-end;margin-top:16px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:200px;"><span class="a-label">Add Reel URL</span><input type="text" class="a-input" id="newReelUrl" placeholder="https://instagram.com/reel/..." style="margin-bottom:0;"></div>
+            <button class="btn btn-primary" onclick="addReel()">Add Reel</button>
           </div>
         </div>
       </div>
 
       <!-- TESTIMONIALS -->
-      <div id="tab-testimonials" class="tab-content">
-        <div class="admin-card">
-          <h4>Testimonials Manager</h4>
-          <div id="testimonial-list">
-            <div style="padding:16px;border:1.5px solid #eee;border-radius:12px;margin-bottom:12px;">
-              <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>⭐⭐⭐⭐⭐ <strong>Priya Sharma</strong></span><button class="btn btn-outline btn-sm" onclick="this.closest('[style]').remove()">Delete</button></div>
-              <p style="color:var(--text-muted);font-size:0.9rem;">The blue tea is absolutely magical! I've been sleeping so much better since I started drinking it every night.</p>
-            </div>
-            <div style="padding:16px;border:1.5px solid #eee;border-radius:12px;margin-bottom:12px;">
-              <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>⭐⭐⭐⭐⭐ <strong>Meera Jain</strong></span><button class="btn btn-outline btn-sm" onclick="this.closest('[style]').remove()">Delete</button></div>
-              <p style="color:var(--text-muted);font-size:0.9rem;">My skin is visibly glowing! I can see a real difference after just 3 weeks. Will definitely reorder.</p>
-            </div>
+      <div id="tab-testimonials" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">Manage Testimonials</div>
+          <div id="testimonialList">
+            <div style="padding:16px;border:1px solid var(--gray-200);border-radius:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><strong>⭐⭐⭐⭐⭐ Priya Sharma</strong><button class="btn btn-outline btn-sm" onclick="this.closest('div[style]').remove()">Delete</button></div><p style="font-size:0.875rem;color:var(--gray-600);">The blue tea is absolutely magical! I've been sleeping so much better since I started drinking it every night.</p></div>
+            <div style="padding:16px;border:1px solid var(--gray-200);border-radius:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><strong>⭐⭐⭐⭐⭐ Meera Jain</strong><button class="btn btn-outline btn-sm" onclick="this.closest('div[style]').remove()">Delete</button></div><p style="font-size:0.875rem;color:var(--gray-600);">My skin is visibly glowing after 3 weeks. Will definitely reorder!</p></div>
           </div>
-          <div style="margin-top:20px;border-top:1px solid #f0f0f0;padding-top:20px;">
-            <h4>Add New Testimonial</h4>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
-              <div><span class="admin-label">Customer Name</span><input type="text" class="admin-input" id="t-name" placeholder="e.g. Ananya Gupta"></div>
-              <div><span class="admin-label">Rating (1–5 Stars)</span><input type="number" class="admin-input" id="t-rating" min="1" max="5" value="5"></div>
-            </div>
-            <span class="admin-label">Review Text</span>
-            <textarea class="admin-textarea" id="t-text" rows="3" placeholder="What did the customer say?"></textarea>
-            <button class="btn btn-dark" onclick="addTestimonial()">➕ Add Testimonial</button>
+          <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-100);">
+            <div class="a-card-title" style="margin-bottom:14px;">Add New</div>
+            <div class="a-grid-2"><div><span class="a-label">Name</span><input type="text" class="a-input" id="tName"></div><div><span class="a-label">Rating (1–5)</span><input type="number" class="a-input" id="tRating" value="5" min="1" max="5"></div></div>
+            <span class="a-label">Review Text</span><textarea class="a-textarea" id="tText" rows="3"></textarea>
+            <button class="btn btn-primary" onclick="addTestimonial()">Add Testimonial</button>
           </div>
         </div>
       </div>
 
       <!-- ORDERS -->
-      <div id="tab-orders" class="tab-content">
-        <div class="admin-card">
-          <h4>All Orders</h4>
-          <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
-            <input type="text" class="admin-input" style="margin:0;flex:1;min-width:200px;" placeholder="Search by Order ID, customer name...">
-            <select class="admin-select" style="margin:0;width:auto;"><option>All Status</option><option>Processing</option><option>Shipped</option><option>Delivered</option><option>Returned</option></select>
-            <button class="btn btn-outline btn-sm" onclick="adminSave('Orders exported')">⬇️ Export CSV</button>
+      <div id="tab-orders" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">All Orders</div>
+          <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+            <input type="text" class="a-input" style="margin:0;flex:1;min-width:180px;" placeholder="Search order ID or customer…">
+            <select class="a-select" style="margin:0;width:auto;"><option>All</option><option>Processing</option><option>Shipped</option><option>Delivered</option></select>
+            <button class="btn btn-outline btn-sm" onclick="save('CSV exported')">Export CSV</button>
           </div>
-          <table class="admin-table">
-            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Amount</th><th>Payment</th><th>Courier</th><th>Status</th><th>Action</th></tr></thead>
+          <table class="a-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Amount</th><th>Payment</th><th>Courier</th><th>Status</th><th></th></tr></thead>
             <tbody>
-              <tr><td>NLR-AB12CD</td><td>Priya S.</td><td>Blue Tea 100g</td><td>₹749</td><td>UPI</td><td>Shiprocket</td><td><span class="tag tag-green">Shipped</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
-              <tr><td>NLR-XY98ZW</td><td>Arjun M.</td><td>Peppermint Combo</td><td>₹899</td><td>COD</td><td>Delhivery</td><td><span class="tag tag-yellow">Processing</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
-              <tr><td>NLR-MN44PQ</td><td>Sneha R.</td><td>Blue Tea 150g</td><td>₹1,099</td><td>Card</td><td>Bluedart</td><td><span class="tag tag-blue">Delivered</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
+              <tr><td>NLR-AB12CD</td><td>Priya S.</td><td>Blue Tea 100g</td><td>₹749</td><td>UPI</td><td>Shiprocket</td><td><span class="badge badge-green">Shipped</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
+              <tr><td>NLR-XY98ZW</td><td>Arjun M.</td><td>Peppermint Combo</td><td>₹899</td><td>COD</td><td>Delhivery</td><td><span class="badge badge-amber">Processing</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
+              <tr><td>NLR-MN44PQ</td><td>Sneha R.</td><td>Blue Tea 150g</td><td>₹1,099</td><td>Card</td><td>Bluedart</td><td><span class="badge badge-blue">Delivered</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
       <!-- SEO -->
-      <div id="tab-seo" class="tab-content">
-        <div class="admin-card">
-          <h4>Homepage SEO</h4>
-          <span class="admin-label">Meta Title</span>
-          <input type="text" class="admin-input" value="Nilora Organics — Pure Blue Tea & Wellness">
-          <span class="admin-label">Meta Description</span>
-          <textarea class="admin-textarea" rows="3">Discover natural wellness with Nilora Organics. Shop premium Butterfly Pea Flower Blue Tea and Peppermint blends. Free shipping across India.</textarea>
-          <span class="admin-label">Focus Keywords (comma separated)</span>
-          <input type="text" class="admin-input" value="blue tea, butterfly pea flower, organic tea India, wellness tea, herbal tea">
-          <span class="admin-label">OG / Social Sharing Image URL</span>
-          <input type="text" class="admin-input" placeholder="https://...">
-          <span class="admin-label">Canonical URL</span>
-          <input type="text" class="admin-input" value="https://niloraorganics.com">
-          <button class="btn btn-dark mt-4" onclick="adminSave('SEO settings')">💾 Save SEO Settings</button>
+      <div id="tab-seo" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">Homepage SEO</div>
+          <span class="a-label">Meta Title</span><input type="text" class="a-input" value="Nilora Organics — Pure Blue Tea & Herbal Wellness">
+          <span class="a-label">Meta Description</span><textarea class="a-textarea" rows="3">Shop premium organic Butterfly Pea Flower Blue Tea. Handpicked, 100% natural. Free shipping across India.</textarea>
+          <span class="a-label">Keywords</span><input type="text" class="a-input" value="blue tea, butterfly pea flower, organic tea India, wellness tea">
+          <span class="a-label">OG Image URL</span><input type="text" class="a-input" placeholder="https://…">
+          <button class="btn btn-primary" onclick="save('SEO')">Save SEO Settings</button>
         </div>
       </div>
 
-      <!-- AI ASSISTANT -->
-      <div id="tab-ai" class="tab-content">
-        <div class="admin-card">
-          <h4>AI Assistant Controls</h4>
-          <div class="settings-row"><div class="settings-row-label"><strong>AI Concierge Active on Store</strong><span>Show the ✨ AI Guide floating button on all pages</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Auto-Open Chat After 20 Seconds</strong><span>Proactively open the chat for new visitors</span></div><label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Show Add-to-Cart in AI Responses</strong><span>Include direct "Add to Cart" action buttons in AI chat</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-row"><div class="settings-row-label"><strong>Smart Search Powered by AI</strong><span>Use semantic AI search instead of keyword-only</span></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+      <!-- AI -->
+      <div id="tab-ai" class="tab-view">
+        <div class="a-card">
+          <div class="a-card-title">AI Assistant Controls</div>
+          <div class="setting-row"><div class="setting-row-info"><strong>AI Guide Active</strong><small>Show the AI Wellness Guide button on the storefront</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Show Add-to-Cart in Responses</strong><small>Allow the AI to include cart buttons in its answers</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Smart AI-Powered Search</strong><small>Use semantic search instead of exact keyword matching</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
         </div>
-        <div class="admin-card">
-          <h4>AI Knowledge Base — Training Rules</h4>
-          <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px;">Each line defines a rule for the AI assistant. Update these to change what the AI recommends based on user intent.</p>
-          <textarea class="admin-textarea" rows="10">
-If user says sleep / relax / calm / insomnia → recommend Blue Tea 50g (₹449)
-If user says skin / glow / anti-aging / radiant → recommend Blue Tea 100g Pack of 2 (₹749)
-If user says stress / anxiety / worry → recommend Peppermint + Blue Tea Combo (₹899)
-If user says digestion / stomach / bloat / gut → recommend Peppermint + Blue Tea Combo (₹899)
-If user says value / budget / best deal → recommend Blue Tea 150g Pack of 3 (₹1099)
-If user says energy / focus → clarify that Blue Tea is caffeine-free and suggest it for calm focus
+        <div class="a-card">
+          <div class="a-card-title">Training Rules</div>
+          <div class="a-card-sub">Each line defines what the AI recommends based on what users say</div>
+          <textarea class="a-textarea" rows="9">
+sleep / calm / relax → Blue Tea 50g (₹449)
+skin / glow / radiant → Blue Tea 100g Pack of 2 (₹749)
+stress / anxiety → Peppermint + Blue Tea Combo (₹899)
+digestion / gut / bloat → Peppermint + Blue Tea Combo (₹899)
+best value / budget → Blue Tea 150g Pack of 3 (₹1099)
           </textarea>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
-            <button class="btn btn-dark" onclick="adminSave('AI rules deployed to store')">🚀 Deploy Rules to Store</button>
-            <button class="btn btn-outline" onclick="adminSave('AI Copilot generating rules...')">✨ Generate with AI Copilot</button>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+            <button class="btn btn-primary" onclick="save('AI rules deployed')">Deploy to Store</button>
+            <button class="btn btn-outline" onclick="save('AI generating…')">Generate with AI Copilot</button>
           </div>
         </div>
       </div>
 
-    </div><!-- /.admin-content -->
-  </main>
+    </div>
+  </div>
 </div>
 
 <script>
-function showToast(msg, type='success') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.background = type === 'error' ? '#dc2626' : '#1a1a5e';
-  t.classList.add('show');
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 3000);
+function toast(msg, err=false) {
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.style.background=err?'#b91c1c':'#1a3a2a';
+  el.classList.add('show'); clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),3000);
 }
-function adminSave(label) { showToast('✅ ' + label + ' saved!'); }
-function switchTab(id, btn) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
+const titles={overview:'Overview',content:'Page Content',products:'Products',payments:'Payments',courier:'Courier Services',reels:'Instagram Reels',testimonials:'Testimonials',orders:'Orders',seo:'SEO Settings',ai:'AI Assistant'};
+function go(id, btn) {
+  document.querySelectorAll('.tab-view').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
-  const titles = {overview:'Dashboard Overview',content:'Page Content',products:'Products & Pricing',payments:'Payment Settings',courier:'Courier Services',reels:'Instagram Reels',testimonials:'Testimonials',orders:'Orders',seo:'SEO Settings',ai:'AI Assistant'};
-  document.getElementById('tab-title').textContent = titles[id] || id;
+  document.getElementById('pageTitle').textContent = titles[id]||id;
 }
-function toggleServicePanel(id, show) {
-  const el = document.getElementById(id);
-  if (el) el.style.display = show ? 'block' : 'none';
-}
+function save(label) { toast(label + ' saved successfully'); }
+function toggle(id, on) { const el=document.getElementById(id); if(el) el.style.display=on?'block':'none'; }
 function addReel() {
-  const url = document.getElementById('new-reel-url').value.trim();
-  if (!url) { showToast('Please enter a reel URL!', 'error'); return; }
-  const row = document.createElement('div');
-  row.className = 'reel-admin-row';
-  row.innerHTML = `<img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=80&h=80" class="reel-admin-thumb" alt="New Reel"><div class="reel-admin-info"><strong>New Instagram Reel</strong><small>${url}</small></div><span class="tag tag-yellow">Pending</span><button class="btn btn-outline btn-sm" onclick="this.closest('.reel-admin-row').remove();showToast('Reel removed')">Remove</button>`;
-  document.getElementById('reels-list').appendChild(row);
-  document.getElementById('new-reel-url').value = '';
-  showToast('✅ Reel added! Connect Instagram to display live video.');
+  const url=document.getElementById('newReelUrl').value.trim();
+  if(!url) { toast('Enter a reel URL first', true); return; }
+  const row=document.createElement('div'); row.className='reel-row';
+  row.innerHTML=`<img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=80&h=80" class="reel-thumb" alt="New"><div class="reel-info"><strong>New Reel</strong><small>${url}</small></div><span class="badge badge-amber">Pending</span><button class="btn btn-outline btn-sm" style="margin-left:8px;" onclick="this.closest('.reel-row').remove()">Remove</button>`;
+  document.getElementById('reelsList').appendChild(row);
+  document.getElementById('newReelUrl').value='';
+  toast('Reel added. Connect Instagram to show live video.');
 }
 function addTestimonial() {
-  const name = document.getElementById('t-name').value.trim();
-  const rating = parseInt(document.getElementById('t-rating').value) || 5;
-  const text = document.getElementById('t-text').value.trim();
-  if (!name || !text) { showToast('Please fill in name and review!', 'error'); return; }
-  const stars = '⭐'.repeat(Math.min(5, Math.max(1, rating)));
-  const d = document.createElement('div');
-  d.style = 'padding:16px;border:1.5px solid #eee;border-radius:12px;margin-bottom:12px;';
-  d.innerHTML = `<div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>${stars} <strong>${name}</strong></span><button class="btn btn-outline btn-sm" onclick="this.closest('[style]').remove()">Delete</button></div><p style="color:var(--text-muted);font-size:0.9rem;">${text}</p>`;
-  document.getElementById('testimonial-list').appendChild(d);
-  document.getElementById('t-name').value = '';
-  document.getElementById('t-text').value = '';
-  document.getElementById('t-rating').value = '5';
-  showToast('✅ Testimonial added!');
+  const name=document.getElementById('tName').value.trim();
+  const text=document.getElementById('tText').value.trim();
+  const rating=Math.min(5,Math.max(1,parseInt(document.getElementById('tRating').value)||5));
+  if(!name||!text) { toast('Fill in name and review', true); return; }
+  const d=document.createElement('div');
+  d.style='padding:16px;border:1px solid var(--gray-200);border-radius:10px;margin-bottom:10px;';
+  d.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><strong>${'⭐'.repeat(rating)} ${name}</strong><button class="btn btn-outline btn-sm" onclick="this.closest('div[style]').remove()">Delete</button></div><p style="font-size:0.875rem;color:var(--gray-600);">${text}</p>`;
+  document.getElementById('testimonialList').appendChild(d);
+  document.getElementById('tName').value=''; document.getElementById('tText').value='';
+  toast('Testimonial added');
 }
 </script>
 </body>

@@ -1,70 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Nilora Organics</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Nilora Organics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .reel-admin-item { display:flex;align-items:center;gap:16px;padding:16px;border:1px solid #eee;border-radius:8px;margin-bottom:12px; }
+  .reel-thumb { width:60px;height:60px;object-fit:cover;border-radius:8px; }
+  .courier-card { border:1px solid #eee;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px; }
+  .courier-logo { font-size:2rem; }
+  .toggle-switch { position:relative;display:inline-block;width:50px;height:26px; }
+  .toggle-switch input { opacity:0;width:0;height:0; }
+  .toggle-slider { position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#ccc;border-radius:26px;transition:.4s; }
+  .toggle-slider:before { position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background:white;border-radius:50%;transition:.4s; }
+  input:checked + .toggle-slider { background:#0A2F82; }
+  input:checked + .toggle-slider:before { transform:translateX(24px); }
+  .stat-card { background:white;padding:24px;border-radius:12px;flex:1;box-shadow:0 2px 10px rgba(0,0,0,0.03); }
+  .stat-value { font-size:2rem;font-weight:bold;color:#0A2F82;margin-top:8px; }
+  .payment-card { border:2px solid #eee;border-radius:12px;padding:20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;transition:border-color 0.2s; }
+  .payment-card.enabled { border-color:#0A2F82; }
+</style>
 </head>
 <body class="admin-body">
-    <div class="admin-layout">
-        <!-- Sidebar -->
-        <aside class="admin-sidebar">
-            <h2 class="admin-logo">Nilora Admin</h2>
-            <nav class="admin-nav">
-                <a href="#" class="active">Overview</a>
-                <a href="#">Page Builder</a>
-                <a href="#">Products</a>
-                <a href="#">AI Assistant Control</a>
-                <a href="#">Settings</a>
-            </nav>
-        </aside>
+<div id="toast"></div>
+<div class="admin-layout">
 
-        <!-- Main Content -->
-        <main class="admin-main">
-            <header class="admin-header">
-                <h2>Dashboard Overview</h2>
-                <div class="admin-user">Welcome, Admin</div>
-            </header>
-
-            <!-- Dashboard Stats -->
-            <section class="admin-stats">
-                <div class="stat-card">
-                    <h3>Page Views</h3>
-                    <p class="stat-value">12,450</p>
-                </div>
-                <div class="stat-card">
-                    <h3>AI Queries Handled</h3>
-                    <p class="stat-value">842</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Conversion Rate</h3>
-                    <p class="stat-value">4.2%</p>
-                </div>
-            </section>
-
-            <!-- AI Content Copilot Builder -->
-            <section class="admin-section">
-                <h3 class="section-title">AI Content Copilot (Page Builder)</h3>
-                <div class="admin-card">
-                    <h4>Hero Section Text</h4>
-                    <input type="text" value="Unlock Natural Wellness with Pure Blue Tea" class="admin-input">
-                    <button class="btn btn-secondary">Generate Alternative with AI ✨</button>
-                    <button class="btn btn-primary mt-4">Save Changes</button>
-                </div>
-            </section>
-
-            <!-- AI Training Room -->
-            <section class="admin-section mt-4">
-                <h3 class="section-title">AI Assistant Training Room</h3>
-                <div class="admin-card">
-                    <h4>Update AI Knowledge Base</h4>
-                    <textarea class="admin-textarea" rows="4">Current Rules: Suggest Peppermint combo when user mentions anxiety. Recommend 100g pack of Blue Tea for anti-aging skin care.</textarea>
-                    <button class="btn btn-primary mt-4">Deploy Rules to Assistant</button>
-                </div>
-            </section>
-        </main>
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-logo">Nilora Admin</div>
+    <nav class="admin-nav" id="admin-nav">
+      <button class="active" onclick="switchTab('overview',this)">📊 Overview</button>
+      <button onclick="switchTab('content',this)">✏️ Page Content</button>
+      <button onclick="switchTab('products',this)">📦 Products</button>
+      <button onclick="switchTab('payments',this)">💳 Payments</button>
+      <button onclick="switchTab('courier',this)">🚚 Courier Services</button>
+      <button onclick="switchTab('reels',this)">📱 Instagram Reels</button>
+      <button onclick="switchTab('testimonials',this)">⭐ Testimonials</button>
+      <button onclick="switchTab('orders',this)">🧾 Orders</button>
+      <button onclick="switchTab('seo',this)">🔍 SEO Settings</button>
+      <button onclick="switchTab('ai',this)">🤖 AI Assistant</button>
+    </nav>
+    <div style="margin-top:auto;padding-top:30px;">
+      <a href="index.html" class="btn btn-secondary w-100" style="text-align:center;display:block;text-decoration:none;padding:10px 16px;">← View Store</a>
     </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+    <div class="admin-header">
+      <h2 id="tab-title">Dashboard Overview</h2>
+      <div style="display:flex;align-items:center;gap:12px;color:#666;">
+        <span>🟢 Store Live</span>
+        <span>|</span>
+        <strong>vikranth21</strong>
+      </div>
+    </div>
+
+    <!-- ====== OVERVIEW ====== -->
+    <div id="tab-overview" class="tab-content active">
+      <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:30px;">
+        <div class="stat-card">
+          <div>Total Orders</div>
+          <div class="stat-value">148</div>
+          <div style="color:#27ae60;font-size:0.85rem;margin-top:4px;">+12% this week</div>
+        </div>
+        <div class="stat-card">
+          <div>Revenue (Month)</div>
+          <div class="stat-value">₹1,32,450</div>
+          <div style="color:#27ae60;font-size:0.85rem;margin-top:4px;">+8% vs last month</div>
+        </div>
+        <div class="stat-card">
+          <div>AI Queries Handled</div>
+          <div class="stat-value">842</div>
+          <div style="color:#0A2F82;font-size:0.85rem;margin-top:4px;">73% conversion from AI</div>
+        </div>
+        <div class="stat-card">
+          <div>Conversion Rate</div>
+          <div class="stat-value">4.2%</div>
+          <div style="color:#27ae60;font-size:0.85rem;margin-top:4px;">Industry avg: 2.1%</div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Recent Orders</h4>
+        <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+          <thead><tr style="background:#f9f9f9;"><th style="padding:10px;text-align:left;">Order ID</th><th style="padding:10px;text-align:left;">Customer</th><th style="padding:10px;text-align:left;">Product</th><th style="padding:10px;text-align:left;">Amount</th><th style="padding:10px;text-align:left;">Status</th></tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid #eee;"><td style="padding:10px;">NLR-AB12CD</td><td>Priya S.</td><td>Blue Tea 100g Pack of 2</td><td>₹749</td><td><span style="background:#e8f5e9;color:#27ae60;padding:3px 8px;border-radius:4px;">Shipped</span></td></tr>
+            <tr style="border-top:1px solid #eee;"><td style="padding:10px;">NLR-XY98ZW</td><td>Arjun M.</td><td>Peppermint Combo Pack of 2</td><td>₹899</td><td><span style="background:#fff3e0;color:#e67e22;padding:3px 8px;border-radius:4px;">Processing</span></td></tr>
+            <tr style="border-top:1px solid #eee;"><td style="padding:10px;">NLR-MN44PQ</td><td>Sneha R.</td><td>Blue Tea 150g Pack of 3</td><td>₹1099</td><td><span style="background:#e3f2fd;color:#0A2F82;padding:3px 8px;border-radius:4px;">Delivered</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ====== CONTENT ====== -->
+    <div id="tab-content" class="tab-content">
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Hero Section</h4>
+        <label>Hero Title</label>
+        <input type="text" class="admin-input" value="Unlock Natural Wellness with Pure Blue Tea">
+        <label>Hero Subtitle</label>
+        <input type="text" class="admin-input" value="Stress relief, glowing skin & antioxidant boost — in every mesmerizing sip.">
+        <label>CTA Button Text</label>
+        <input type="text" class="admin-input" value="Shop the Collection">
+        <button class="btn btn-primary mt-4" onclick="adminSave('Hero section')">💾 Save Changes</button>
+      </div>
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Section Visibility</h4>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="settings-group"><span>Benefits Section</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="settings-group"><span>Product/Shop Section</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="settings-group"><span>Instagram Reels Section</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="settings-group"><span>Our Story Section</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+        </div>
+        <button class="btn btn-primary mt-4" onclick="adminSave('Section visibility')">💾 Save Changes</button>
+      </div>
+    </div>
+
+    <!-- ====== PRODUCTS ====== -->
+    <div id="tab-products" class="tab-content">
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Blue Tea — Pricing & Stock</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+          <div><label>50g Price (₹)</label><input type="number" class="admin-input" value="449"></div>
+          <div><label>100g Price (₹)</label><input type="number" class="admin-input" value="749"></div>
+          <div><label>150g Price (₹)</label><input type="number" class="admin-input" value="1099"></div>
+        </div>
+        <button class="btn btn-primary mt-4" onclick="adminSave('Product pricing')">💾 Save Pricing</button>
+      </div>
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Peppermint Combo — Pricing</h4>
+        <label>Combo Price (₹)</label>
+        <input type="number" class="admin-input" value="899">
+        <button class="btn btn-primary mt-4" onclick="adminSave('Combo pricing')">💾 Save Pricing</button>
+      </div>
+    </div>
+
+    <!-- ====== PAYMENTS ====== -->
+    <div id="tab-payments" class="tab-content">
+      <p style="color:#666;margin-bottom:24px;">Enable or disable payment methods available at checkout.</p>
+      <div class="payment-card enabled">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span style="font-size:2.5rem;">💡</span>
+          <div><strong>UPI / QR Code</strong><p style="color:#666;font-size:0.9rem;">PhonePe, Paytm, Google Pay, BHIM</p></div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" checked onchange="this.closest('.payment-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="payment-card enabled">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span style="font-size:2.5rem;">💳</span>
+          <div><strong>Credit / Debit Card</strong><p style="color:#666;font-size:0.9rem;">Visa, Mastercard, RuPay</p></div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" checked onchange="this.closest('.payment-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="payment-card enabled">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span style="font-size:2.5rem;">💵</span>
+          <div><strong>Cash on Delivery</strong><p style="color:#666;font-size:0.9rem;">Pay when you receive the order</p></div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" checked onchange="this.closest('.payment-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="payment-card">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span style="font-size:2.5rem;">🏦</span>
+          <div><strong>Net Banking</strong><p style="color:#666;font-size:0.9rem;">All major Indian banks</p></div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" onchange="this.closest('.payment-card').classList.toggle('enabled',this.checked)"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="admin-card" style="margin-top:24px;">
+        <h4 style="margin-bottom:16px;">Razorpay / Payment Gateway Integration</h4>
+        <label>Razorpay API Key ID</label>
+        <input type="text" class="admin-input" placeholder="rzp_live_XXXXXXXXXXXX">
+        <label>Razorpay Secret Key</label>
+        <input type="password" class="admin-input" placeholder="••••••••••••••••">
+        <label>Webhook URL</label>
+        <input type="text" class="admin-input" value="https://vikranth21.github.io/nilora-redesign/webhook">
+        <button class="btn btn-primary mt-4" onclick="adminSave('Payment gateway')">💾 Save Gateway Settings</button>
+      </div>
+    </div>
+
+    <!-- ====== COURIER ====== -->
+    <div id="tab-courier" class="tab-content">
+      <p style="color:#666;margin-bottom:24px;">Connect courier partners for automated shipping and real-time order tracking.</p>
+
+      <div class="courier-card">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span class="courier-logo">🟠</span>
+          <div><strong>Shiprocket</strong><p style="color:#666;font-size:0.9rem;">India's #1 shipping aggregator — Bluedart, Delhivery, DTDC</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <label class="toggle-switch"><input type="checkbox" checked onchange="toggleCourierSettings('shiprocket',this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+      <div id="shiprocket-settings" class="admin-card" style="margin-top:-8px;border-top-left-radius:0;border-top-right-radius:0;">
+        <label>Shiprocket Email</label>
+        <input type="email" class="admin-input" placeholder="your@email.com">
+        <label>Shiprocket Password</label>
+        <input type="password" class="admin-input" placeholder="••••••••">
+        <label>Pickup Warehouse PIN Code</label>
+        <input type="text" class="admin-input" placeholder="560001">
+        <label>Default Courier Partner</label>
+        <select class="admin-select"><option>Auto-Select Cheapest</option><option>Bluedart</option><option>Delhivery</option><option>DTDC</option><option>FedEx India</option></select>
+        <button class="btn btn-primary mt-4" onclick="adminSave('Shiprocket')">💾 Connect Shiprocket</button>
+      </div>
+
+      <div class="courier-card" style="margin-top:24px;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span class="courier-logo">🔵</span>
+          <div><strong>Delhivery</strong><p style="color:#666;font-size:0.9rem;">Direct integration — pan-India express delivery</p></div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" onchange="toggleCourierSettings('delhivery',this.checked)"><span class="toggle-slider"></span></label>
+      </div>
+      <div id="delhivery-settings" class="admin-card" style="display:none;margin-top:-8px;">
+        <label>Delhivery API Token</label>
+        <input type="text" class="admin-input" placeholder="Delhivery API Token">
+        <button class="btn btn-primary mt-4" onclick="adminSave('Delhivery')">💾 Connect Delhivery</button>
+      </div>
+
+      <div class="courier-card" style="margin-top:24px;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span class="courier-logo">🟡</span>
+          <div><strong>Bluedart</strong><p style="color:#666;font-size:0.9rem;">Premium express courier — reliable and widespread</p></div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" onchange="toggleCourierSettings('bluedart',this.checked)"><span class="toggle-slider"></span></label>
+      </div>
+      <div id="bluedart-settings" class="admin-card" style="display:none;margin-top:-8px;">
+        <label>Bluedart Login ID</label>
+        <input type="text" class="admin-input" placeholder="Bluedart Login ID">
+        <label>Bluedart License Key</label>
+        <input type="text" class="admin-input" placeholder="License Key">
+        <button class="btn btn-primary mt-4" onclick="adminSave('Bluedart')">💾 Connect Bluedart</button>
+      </div>
+
+      <div class="admin-card" style="margin-top:24px;">
+        <h4 style="margin-bottom:16px;">Shipping Rules</h4>
+        <div class="settings-group"><span>Free Shipping (All Orders)</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+        <div class="settings-group"><span>Free Shipping Above (₹)</span>
+          <input type="number" style="width:120px;padding:8px;border:1px solid #ddd;border-radius:8px;" value="499">
+        </div>
+        <div class="settings-group"><span>Estimated Delivery Days</span>
+          <select style="padding:8px;border:1px solid #ddd;border-radius:8px;"><option>3-5 Days</option><option>5-7 Days</option><option>7-10 Days</option></select>
+        </div>
+        <button class="btn btn-primary mt-4" onclick="adminSave('Shipping rules')">💾 Save Shipping Rules</button>
+      </div>
+    </div>
+
+    <!-- ====== INSTAGRAM REELS ====== -->
+    <div id="tab-reels" class="tab-content">
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Instagram Connection</h4>
+        <p style="color:#666;margin-bottom:16px;">Connect your Instagram Business account to auto-import reels to your homepage.</p>
+        <label>Instagram Business Account ID</label>
+        <input type="text" class="admin-input" placeholder="@niloraorganics or Page ID">
+        <label>Instagram API Access Token</label>
+        <input type="text" class="admin-input" placeholder="Paste your Meta API token here">
+        <div style="display:flex;gap:12px;margin-top:16px;">
+          <button class="btn btn-primary" onclick="adminSave('Instagram connection')">🔗 Connect Instagram</button>
+          <button class="btn btn-secondary" onclick="adminSave('Refresh reels')">🔄 Sync Latest Reels</button>
+        </div>
+      </div>
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Manage Homepage Reels (3 featured)</h4>
+        <div class="reel-admin-item">
+          <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=80&h=80" class="reel-thumb" alt="Reel 1">
+          <div style="flex:1;">
+            <div style="font-weight:500;">@wellness_with_priya</div>
+            <div style="color:#666;font-size:0.85rem;">Reel · 45k views · 2 days ago</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span style="background:#e8f5e9;color:#27ae60;padding:3px 8px;border-radius:4px;font-size:0.8rem;">Featured</span>
+            <button class="btn btn-secondary" style="padding:6px 12px;" onclick="adminSave('Reel removed')">Remove</button>
+          </div>
+        </div>
+        <div class="reel-admin-item">
+          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=80&h=80" class="reel-thumb" alt="Reel 2">
+          <div style="flex:1;">
+            <div style="font-weight:500;">@tea_with_meera</div>
+            <div style="color:#666;font-size:0.85rem;">Reel · 22k views · 5 days ago</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span style="background:#e8f5e9;color:#27ae60;padding:3px 8px;border-radius:4px;font-size:0.8rem;">Featured</span>
+            <button class="btn btn-secondary" style="padding:6px 12px;" onclick="adminSave('Reel removed')">Remove</button>
+          </div>
+        </div>
+        <div class="reel-admin-item">
+          <img src="https://images.unsplash.com/photo-1517867065801-e20f409696b0?auto=format&fit=crop&w=80&h=80" class="reel-thumb" alt="Reel 3">
+          <div style="flex:1;">
+            <div style="font-weight:500;">@healthybowls_india</div>
+            <div style="color:#666;font-size:0.85rem;">Reel · 18k views · 1 week ago</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span style="background:#e8f5e9;color:#27ae60;padding:3px 8px;border-radius:4px;font-size:0.8rem;">Featured</span>
+            <button class="btn btn-secondary" style="padding:6px 12px;" onclick="adminSave('Reel removed')">Remove</button>
+          </div>
+        </div>
+        <button class="btn btn-primary mt-4" onclick="adminSave('Added new reel')">➕ Add New Reel / URL</button>
+      </div>
+    </div>
+
+    <!-- ====== TESTIMONIALS ====== -->
+    <div id="tab-testimonials" class="tab-content">
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Manage Testimonials</h4>
+        <div id="testimonial-list">
+          <div style="padding:16px;border:1px solid #eee;border-radius:8px;margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+              <strong>⭐⭐⭐⭐⭐ Priya Sharma</strong>
+              <button class="btn btn-secondary" style="padding:4px 12px;" onclick="this.closest('div[style]').remove()">Delete</button>
+            </div>
+            <p style="color:#666;">The blue tea is absolutely magical! I've been sleeping so much better since I started drinking it every night.</p>
+          </div>
+          <div style="padding:16px;border:1px solid #eee;border-radius:8px;margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+              <strong>⭐⭐⭐⭐⭐ Meera Jain</strong>
+              <button class="btn btn-secondary" style="padding:4px 12px;" onclick="this.closest('div[style]').remove()">Delete</button>
+            </div>
+            <p style="color:#666;">My skin is glowing! I can see a real difference after just 3 weeks. Will definitely buy again.</p>
+          </div>
+        </div>
+        <h4 style="margin:20px 0 12px;">Add New Testimonial</h4>
+        <input type="text" class="admin-input" placeholder="Customer Name" id="t-name">
+        <input type="number" class="admin-input" placeholder="Rating (1-5)" id="t-rating" min="1" max="5">
+        <textarea class="admin-textarea" rows="3" placeholder="Review text..." id="t-text"></textarea>
+        <button class="btn btn-primary" onclick="addTestimonial()">➕ Add Testimonial</button>
+      </div>
+    </div>
+
+    <!-- ====== ORDERS ====== -->
+    <div id="tab-orders" class="tab-content">
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">All Orders</h4>
+        <div style="display:flex;gap:12px;margin-bottom:20px;">
+          <input type="text" class="admin-input" style="margin:0;" placeholder="Search by Order ID or Customer...">
+          <select class="admin-select" style="width:auto;margin:0;"><option>All Status</option><option>Processing</option><option>Shipped</option><option>Delivered</option></select>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+          <thead><tr style="background:#f9f9f9;"><th style="padding:10px;text-align:left;">Order ID</th><th>Customer</th><th>Product</th><th>Amount</th><th>Payment</th><th>Courier</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid #eee;"><td style="padding:10px;">NLR-AB12CD</td><td>Priya S.</td><td>Blue Tea 100g</td><td>₹749</td><td>UPI</td><td>Shiprocket</td><td><span style="background:#e8f5e9;color:#27ae60;padding:3px 8px;border-radius:4px;">Shipped</span></td></tr>
+            <tr style="border-top:1px solid #eee;"><td style="padding:10px;">NLR-XY98ZW</td><td>Arjun M.</td><td>Peppermint Combo</td><td>₹899</td><td>COD</td><td>Delhivery</td><td><span style="background:#fff3e0;color:#e67e22;padding:3px 8px;border-radius:4px;">Processing</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ====== SEO ====== -->
+    <div id="tab-seo" class="tab-content">
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">Homepage SEO</h4>
+        <label>Meta Title</label>
+        <input type="text" class="admin-input" value="Nilora Organics - Pure Blue Tea & Wellness">
+        <label>Meta Description</label>
+        <textarea class="admin-textarea" rows="3">Discover natural wellness with Nilora Organics. Shop our premium Butterfly Pea Flower Tea (Blue Tea) and Peppermint blends. Free shipping across India.</textarea>
+        <label>Keywords (comma separated)</label>
+        <input type="text" class="admin-input" value="blue tea, butterfly pea flower, organic tea India, wellness tea, herbal tea">
+        <label>OG Image URL</label>
+        <input type="text" class="admin-input" placeholder="https://...">
+        <button class="btn btn-primary mt-4" onclick="adminSave('SEO settings')">💾 Save SEO Settings</button>
+      </div>
+    </div>
+
+    <!-- ====== AI ASSISTANT ====== -->
+    <div id="tab-ai" class="tab-content">
+      <div class="admin-card">
+        <h4 style="margin-bottom:16px;">AI Assistant Controls</h4>
+        <div class="settings-group"><span>AI Concierge Active on Store</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+        <div class="settings-group"><span>Auto Show Chat After 15 Seconds</span><label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label></div>
+        <div class="settings-group"><span>Show Add-to-Cart Buttons in Chat</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+      </div>
+      <div class="admin-card">
+        <h4 style="margin-bottom:12px;">AI Knowledge Base / Training Rules</h4>
+        <p style="color:#666;font-size:0.9rem;margin-bottom:12px;">Update these rules to train the AI what to recommend. Each line = one rule.</p>
+        <textarea class="admin-textarea" rows="8">
+If user says sleep → recommend Blue Tea 50g (₹449)
+If user says skin or glow → recommend Blue Tea 100g Pack of 2 (₹749)
+If user says stress or anxiety → recommend Peppermint + Blue Tea Combo (₹899)
+If user says digestion or bloat → recommend Peppermint + Blue Tea Combo (₹899)
+If user says value or budget → recommend Blue Tea 150g Pack of 3 (₹1099)
+        </textarea>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+          <button class="btn btn-primary" onclick="adminSave('AI rules deployed')">🚀 Deploy Rules to Store</button>
+          <button class="btn btn-secondary" onclick="adminSave('Copilot generating...')">✨ Generate Rules with AI Copilot</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = type === 'error' ? '#e74c3c' : '#27ae60';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function adminSave(label) {
+  showToast('✅ ' + label + ' saved successfully!');
+}
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  const titles = {
+    overview: 'Dashboard Overview', content: 'Page Content', products: 'Products & Pricing',
+    payments: 'Payment Settings', courier: 'Courier Services', reels: 'Instagram Reels',
+    testimonials: 'Testimonials', orders: 'Orders', seo: 'SEO Settings', ai: 'AI Assistant'
+  };
+  document.getElementById('tab-title').textContent = titles[id] || id;
+}
+
+function toggleCourierSettings(name, on) {
+  const el = document.getElementById(name + '-settings');
+  if (el) el.style.display = on ? 'block' : 'none';
+}
+
+function addTestimonial() {
+  const name = document.getElementById('t-name').value.trim();
+  const rating = document.getElementById('t-rating').value;
+  const text = document.getElementById('t-text').value.trim();
+  if (!name || !text) { showToast('Please fill name and review!', 'error'); return; }
+  const stars = '⭐'.repeat(parseInt(rating) || 5);
+  const div = document.createElement('div');
+  div.style = 'padding:16px;border:1px solid #eee;border-radius:8px;margin-bottom:12px;';
+  div.innerHTML = `<div style="display:flex;justify-content:space-between;margin-bottom:8px;"><strong>${stars} ${name}</strong><button class="btn btn-secondary" style="padding:4px 12px;" onclick="this.closest('div[style]').remove()">Delete</button></div><p style="color:#666;">${text}</p>`;
+  document.getElementById('testimonial-list').appendChild(div);
+  document.getElementById('t-name').value = '';
+  document.getElementById('t-rating').value = '';
+  document.getElementById('t-text').value = '';
+  showToast('✅ Testimonial added!');
+}
+</script>
 </body>
 </html>

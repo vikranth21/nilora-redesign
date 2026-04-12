@@ -1,164 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nilora Organics - Pure Blue Tea & Wellness</title>
-    <meta name="description" content="Discover natural wellness with Nilora Organics. Shop our premium Butterfly Pea Flower Tea (Blue Tea) and Peppermint blends.">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nilora Organics - Pure Blue Tea & Wellness</title>
+<meta name="description" content="Discover natural wellness with Nilora Organics. Shop our premium Butterfly Pea Flower Tea (Blue Tea) and Peppermint blends. Free shipping across India.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Top Bar -->
-    <div class="top-bar">
-        Free Shipping all Over India
+
+<!-- Toast Notification -->
+<div id="toast"></div>
+
+<!-- Top Bar -->
+<div class="top-bar">🚚 Free Shipping all Over India &nbsp;|&nbsp; 🌿 100% Organic &nbsp;|&nbsp; ⭐ 10,000+ Happy Customers</div>
+
+<!-- Smart Sticky Header -->
+<header class="smart-header">
+  <div class="header-container">
+    <nav class="nav-links desktop-only">
+      <a href="#benefits">Benefits</a>
+      <a href="#shop">Shop</a>
+      <a href="#reels">Community</a>
+      <a href="#story">Our Story</a>
+    </nav>
+    <div class="logo"><span onclick="window.scrollTo(0,0)" style="cursor:pointer;font-family:'Playfair Display',serif;color:#0A2F82;font-size:1.8rem;font-weight:700">Nilora Organics</span></div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="openSearch()" aria-label="Search" title="Search">🔍</button>
+      <button class="icon-btn" onclick="toggleCart()" aria-label="Cart" title="Cart">🛒 <span class="cart-count" id="cart-count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Search Modal -->
+<div class="modal" id="search-modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeSearch()">✖</button>
+    <h3 style="margin-bottom:16px;color:#0A2F82;font-family:'Playfair Display',serif;">Search Products</h3>
+    <input type="text" id="search-input" class="admin-input" placeholder="Try 'sleep', 'skin', 'stress', 'blue tea'..." oninput="runSearch(this.value)">
+    <div id="search-results" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <p style="color:rgba(255,255,255,0.8);font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Pure · Organic · Handpicked</p>
+    <h1 class="hero-title">Unlock Natural Wellness with Pure Blue Tea</h1>
+    <p class="hero-subtitle">Stress relief, glowing skin & antioxidant boost — in every mesmerizing sip.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary btn-large" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop the Collection</button>
+      <button class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.4);backdrop-filter:blur(4px);" onclick="toggleAIChat()">✨ Get a Recommendation</button>
+    </div>
+  </div>
+</section>
+
+<!-- Social Proof Bar -->
+<div class="social-proof">
+  ⭐⭐⭐⭐⭐ &nbsp;4.9/5 from 2,400+ Reviews &nbsp;|&nbsp; 🌿 No Artificial Flavors &nbsp;|&nbsp; ☕ Caffeine-Free &nbsp;|&nbsp; 📦 Ships in 24 Hours
+</div>
+
+<!-- Benefits Bento Grid -->
+<section id="benefits" class="benefits-section">
+  <h2 class="section-title">Why Nilora Blue Tea?</h2>
+  <div class="bento-grid">
+    <div class="bento-card">
+      <div style="font-size:2rem;margin-bottom:12px;">🫐</div>
+      <h3 style="color:#0A2F82;margin-bottom:8px;">Rich in Antioxidants</h3>
+      <p style="color:#6C6C6C;">Packed with anthocyanin to fight free radicals and slow aging.</p>
+    </div>
+    <div class="bento-card">
+      <div style="font-size:2rem;margin-bottom:12px;">🌙</div>
+      <h3 style="color:#0A2F82;margin-bottom:8px;">Caffeine-Free</h3>
+      <p style="color:#6C6C6C;">Perfect for evenings. Sleep deeper and wake refreshed.</p>
+    </div>
+    <div class="bento-card">
+      <div style="font-size:2rem;margin-bottom:12px;">✨</div>
+      <h3 style="color:#0A2F82;margin-bottom:8px;">Glowing Skin</h3>
+      <p style="color:#6C6C6C;">Natural skin brightener that hydrates from within.</p>
+    </div>
+    <div class="bento-card">
+      <div style="font-size:2rem;margin-bottom:12px;">🧘</div>
+      <h3 style="color:#0A2F82;margin-bottom:8px;">Stress Relief</h3>
+      <p style="color:#6C6C6C;">A natural adaptogen that calms your mind and reduces anxiety.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Shop Section -->
+<section id="shop" class="shop-section">
+  <h2 class="section-title">Our Signature Blends</h2>
+  <div class="product-grid">
+
+    <!-- Product 1: Blue Tea -->
+    <div class="product-card">
+      <div class="product-image blue-tea-img">
+        <span class="badge">⭐ Best Seller</span>
+      </div>
+      <div class="product-info">
+        <h3>Butterfly Pea Flower Blue Tea</h3>
+        <p style="color:#6C6C6C;font-size:0.9rem;margin-bottom:12px;">100% handpicked, organic. Watch it magically change colour.</p>
+        <p class="price" id="price-blue">₹449</p>
+        <div class="size-toggles" id="toggles-blue">
+          <button class="size-btn active" onclick="updatePrice('blue',449,this,'Butterfly Pea Flower Blue Tea 50g',1)">50g</button>
+          <button class="size-btn" onclick="updatePrice('blue',749,this,'Butterfly Pea Flower Blue Tea 100g (Pack of 2)',2)">100g (Pack of 2)</button>
+          <button class="size-btn" onclick="updatePrice('blue',1099,this,'Butterfly Pea Flower Blue Tea 150g (Pack of 3)',3)">150g (Pack of 3)</button>
+        </div>
+        <button class="btn btn-primary w-100" onclick="addToCart('blue')">Add to Cart 🛒</button>
+        <button class="btn btn-secondary w-100 mt-4" onclick="buyNow('blue')">⚡ Buy Now</button>
+      </div>
     </div>
 
-    <!-- Smart Header -->
-    <header class="smart-header glassmorphism">
-        <div class="header-container">
-            <nav class="nav-links desktop-only">
-                <a href="#shop">Shop</a>
-                <a href="#benefits">Benefits</a>
-                <a href="#story">Our Story</a>
-            </nav>
-            <div class="logo">
-                <h1>Nilora Organics</h1>
-            </div>
-            <div class="header-actions">
-                <button class="icon-btn search-btn" aria-label="Search">🔍</button>
-                <button class="icon-btn cart-btn" aria-label="Cart" onclick="toggleCart()">🛒 <span class="cart-count">0</span></button>
-            </div>
+    <!-- Product 2: Peppermint Combo -->
+    <div class="product-card">
+      <div class="product-image peppermint-tea-img">
+        <span class="badge" style="background:#e74c3c;">🔥 Sale</span>
+      </div>
+      <div class="product-info">
+        <h3>Peppermint + Blue Tea Combo</h3>
+        <p style="color:#6C6C6C;font-size:0.9rem;margin-bottom:12px;">The perfect wellness duo. Refreshing peppermint meets calming blue.</p>
+        <p class="price" id="price-combo">₹899</p>
+        <div class="size-toggles">
+          <button class="size-btn active" onclick="updatePrice('combo',899,this,'Peppermint + Blue Tea Combo (Pack of 2)',2)">Pack of 2</button>
         </div>
-    </header>
-
-    <!-- Immersive Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Unlock Natural Wellness with Pure Blue Tea</h1>
-            <p class="hero-subtitle">Stress relief, glowing skin, and a vibrant antioxidant boost in every sip.</p>
-            <button class="btn btn-primary btn-large">Shop the Collection</button>
-        </div>
-        <div class="hero-bg-overlay"></div>
-    </section>
-
-    <!-- Social Proof Bar -->
-    <div class="social-proof">
-        <p>⭐ Trusted by 10,000+ Tea Lovers | 🌿 100% Organic | ☕ Handpicked Premium Quality</p>
+        <button class="btn btn-primary w-100" onclick="addToCart('combo')">Add to Cart 🛒</button>
+        <button class="btn btn-secondary w-100 mt-4" onclick="buyNow('combo')">⚡ Buy Now</button>
+      </div>
     </div>
 
-    <!-- The 'Why' (Interactive Features Container) -->
-    <section id="benefits" class="benefits-section">
-        <h2 class="section-title">Why Nilora Organic Blue Tea?</h2>
-        <div class="bento-grid">
-            <div class="bento-card bento-card-1">
-                <h3>Rich in Antioxidants</h3>
-                <p>Packed with anthocyanin to fight free radicals.</p>
-            </div>
-            <div class="bento-card bento-card-2">
-                <h3>Caffeine-Free</h3>
-                <p>Perfect for evening relaxation and better sleep.</p>
-            </div>
-            <div class="bento-card bento-card-3">
-                <h3>Vibrant & Beautiful</h3>
-                <p>Watch the deep blue transform to purple with a drop of lemon.</p>
-            </div>
-            <div class="bento-card bento-card-4">
-                <h3>Stress Relief</h3>
-                <p>A natural adaptogen that calms the mind.</p>
-            </div>
-        </div>
-    </section>
+  </div>
+</section>
 
-    <!-- Curated Shop -->
-    <section id="shop" class="shop-section">
-        <h2 class="section-title">Our Signature Blends</h2>
-        <div class="product-grid">
-            <!-- Product Card 1 -->
-            <div class="product-card">
-                <div class="product-image blue-tea-img"></div>
-                <div class="product-info">
-                    <span class="badge">Best Seller</span>
-                    <h3>Butterfly Pea Flower Herbal Tea</h3>
-                    <p class="price" id="price-blue">₹449</p>
-                    <div class="size-toggles">
-                        <button class="size-btn active" onclick="updatePrice('blue', 449, this)">50g</button>
-                        <button class="size-btn" onclick="updatePrice('blue', 749, this)">100g (Pack of 2)</button>
-                        <button class="size-btn" onclick="updatePrice('blue', 1099, this)">150g (Pack of 3)</button>
-                    </div>
-                    <button class="btn btn-primary w-100 mt-4" onclick="addToCart()">Add to Cart</button>
-                </div>
-            </div>
-            <!-- Product Card 2 -->
-            <div class="product-card">
-                <div class="product-image peppermint-tea-img"></div>
-                <div class="product-info">
-                    <span class="badge badge-sale">Sale</span>
-                    <h3>Peppermint + Blue Tea Combo</h3>
-                    <p class="price" id="price-combo">₹899</p>
-                    <div class="size-toggles">
-                        <button class="size-btn active">Pack of 2</button>
-                    </div>
-                    <button class="btn btn-primary w-100 mt-4" onclick="addToCart()">Add to Cart</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Wellness Concierge UI -->
-    <div id="ai-assistant-widget">
-        <button id="ai-toggle-btn" class="ai-button" onclick="toggleAIChat()">
-            <span class="sparkle">✨</span> AI Guide
-        </button>
-        <div id="ai-chat-window" class="chat-window hidden">
-            <div class="chat-header">
-                <h4>✨ Nilora Wellness Assistant</h4>
-                <button class="close-chat" onclick="toggleAIChat()">✖</button>
-            </div>
-            <div class="chat-body" id="chat-body">
-                <div class="bot-msg">Hi! I'm your wellness guide. Are you looking to improve your sleep, get glowing skin, or reduce stress?</div>
-            </div>
-            <div class="chat-input">
-                <input type="text" id="ai-input" placeholder="Type your health goal...">
-                <button onclick="handleAIQuery()">Send</button>
-            </div>
-        </div>
+<!-- Instagram Reels Section -->
+<section id="reels" class="reels-section">
+  <h2 class="section-title">Real Experiences 📱</h2>
+  <p style="text-align:center;color:#6C6C6C;margin-bottom:40px;">Join thousands of wellness lovers sharing their Nilora moments</p>
+  <div class="reels-grid">
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=400&h=700" class="dummy-reel" alt="Customer Experience 1">
+      <div class="ig-overlay">
+        <span>▶</span>
+        <span>@wellness_with_priya</span>
+      </div>
+      <div style="position:absolute;top:15px;right:15px;color:white;font-size:1.5rem;">📷</div>
     </div>
-
-    <!-- Slide-out Cart -->
-    <div id="cart-drawer" class="cart-drawer hidden">
-        <div class="cart-header">
-            <h3>Your Cart</h3>
-            <button class="close-cart" onclick="toggleCart()">✖</button>
-        </div>
-        <div class="cart-items" id="cart-items">
-            <!-- Items injected by JS -->
-            <p class="empty-cart-msg">Your cart is gently empty.</p>
-        </div>
-        <div class="cart-footer">
-            <button class="btn btn-primary w-100">Checkout (₹0)</button>
-        </div>
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&h=700" class="dummy-reel" alt="Customer Experience 2">
+      <div class="ig-overlay">
+        <span>▶</span>
+        <span>@tea_with_meera</span>
+      </div>
+      <div style="position:absolute;top:15px;right:15px;color:white;font-size:1.5rem;">📷</div>
     </div>
-    <div id="cart-overlay" class="cart-overlay hidden" onclick="toggleCart()"></div>
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1517867065801-e20f409696b0?auto=format&fit=crop&w=400&h=700" class="dummy-reel" alt="Customer Experience 3">
+      <div class="ig-overlay">
+        <span>▶</span>
+        <span>@healthybowls_india</span>
+      </div>
+      <div style="position:absolute;top:15px;right:15px;color:white;font-size:1.5rem;">📷</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:30px;">
+    <a href="https://instagram.com" target="_blank" class="btn btn-secondary">Follow us @NiloraOrganics on Instagram</a>
+  </div>
+</section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-col">
-                <h4>Nilora Organics</h4>
-                <p>Pure, handpicked wellness from nature directly to your cup.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <a href="#shop">Catalog</a>
-                <a href="#">About Us</a>
-                <a href="#">Contact/Terms</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Nilora Organics. All rights reserved.</p>
-        </div>
-    </footer>
+<!-- Our Story -->
+<section id="story" style="background:#0A2F82;color:white;padding:80px 20px;text-align:center;margin-top:60px;">
+  <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:20px;">Our Story</h2>
+  <p style="max-width:700px;margin:0 auto;font-size:1.1rem;opacity:0.9;line-height:1.8;">Nilora Organics was born from a simple belief — that nature holds the most powerful remedies. We handpick every Butterfly Pea Flower from organic farms and bring it directly to your cup, preserving every drop of its healing magic.</p>
+</section>
 
-    <script src="script.js"></script>
+<!-- AI Wellness Concierge -->
+<div id="ai-assistant-widget">
+  <button class="ai-button" onclick="toggleAIChat()">
+    <span>✨</span> AI Guide
+  </button>
+  <div id="ai-chat-window" class="chat-window hidden">
+    <div class="chat-header">
+      <h4>✨ Nilora Wellness Assistant</h4>
+      <button style="background:none;border:none;color:white;cursor:pointer;font-size:1.2rem;" onclick="toggleAIChat()">✖</button>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <div class="bot-msg">Hi! 👋 I'm your wellness guide. Tell me your health goal — better sleep, glowing skin, or stress relief?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="ai-input" placeholder="E.g. I want glowing skin...">
+      <button onclick="handleAIQuery()">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- Slide-out Cart Drawer -->
+<div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
+<div id="cart-drawer" class="cart-drawer">
+  <div class="cart-header">
+    <h3>🛒 Your Cart</h3>
+    <button style="background:none;border:none;font-size:1.5rem;cursor:pointer;" onclick="toggleCart()">✖</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <p style="color:#aaa;text-align:center;margin-top:40px;">Your cart is empty. Add something beautiful! 🌿</p>
+  </div>
+  <div class="cart-footer">
+    <div style="display:flex;justify-content:space-between;margin-bottom:16px;font-weight:600;font-size:1.1rem;">
+      <span>Total</span>
+      <span id="cart-total">₹0</span>
+    </div>
+    <button class="btn btn-primary w-100" onclick="openCheckout()">Proceed to Checkout ➤</button>
+    <button class="btn btn-secondary w-100 mt-4" onclick="toggleCart()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- Checkout Modal -->
+<div class="modal" id="checkout-modal">
+  <div class="modal-content" style="max-width:600px;">
+    <button class="modal-close" onclick="closeCheckout()">✖</button>
+    <h3 style="color:#0A2F82;font-family:'Playfair Display',serif;margin-bottom:20px;">Secure Checkout</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <input class="admin-input" style="margin:0;" placeholder="First Name" id="co-fname">
+      <input class="admin-input" style="margin:0;" placeholder="Last Name" id="co-lname">
+      <input class="admin-input" style="margin:0;grid-column:span 2;" placeholder="Email Address" id="co-email" type="email">
+      <input class="admin-input" style="margin:0;grid-column:span 2;" placeholder="Phone Number" id="co-phone" type="tel">
+      <input class="admin-input" style="margin:0;grid-column:span 2;" placeholder="Full Delivery Address" id="co-addr">
+      <input class="admin-input" style="margin:0;" placeholder="City" id="co-city">
+      <input class="admin-input" style="margin:0;" placeholder="PIN Code" id="co-pin">
+    </div>
+    <h4 style="margin:20px 0 12px;">Choose Payment</h4>
+    <div style="display:flex;flex-direction:column;gap:10px;" id="payment-options">
+      <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #ddd;border-radius:8px;cursor:pointer;">
+        <input type="radio" name="payment" value="upi" checked> 💡 UPI / QR Code (PhonePe, Paytm, GPay)
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #ddd;border-radius:8px;cursor:pointer;">
+        <input type="radio" name="payment" value="card"> 💳 Credit / Debit Card
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #ddd;border-radius:8px;cursor:pointer;">
+        <input type="radio" name="payment" value="cod"> 💵 Cash on Delivery
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #ddd;border-radius:8px;cursor:pointer;">
+        <input type="radio" name="payment" value="netbanking"> 🏦 Net Banking
+      </label>
+    </div>
+    <div style="margin-top:20px;padding:16px;background:#f0f4ff;border-radius:8px;">
+      <div style="display:flex;justify-content:space-between;"><span>Cart Total</span><span id="checkout-total" style="font-weight:700;color:#0A2F82;">₹0</span></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;"><span>Shipping</span><span style="color:#27ae60;">FREE</span></div>
+    </div>
+    <button class="btn btn-primary w-100 mt-4" style="font-size:1.1rem;padding:16px;" onclick="placeOrder()">🔒 Place Order Securely</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-col">
+      <h4>Nilora Organics</h4>
+      <p style="color:rgba(255,255,255,0.8);">Pure, handpicked organic wellness from nature to your cup.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#shop">Shop</a>
+      <a href="#benefits">Benefits</a>
+      <a href="#story">About Us</a>
+      <a href="admin.html">Admin Panel</a>
+    </div>
+    <div class="footer-col">
+      <h4>Policies</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Return Policy</a>
+      <a href="#">Terms & Conditions</a>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px;border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;color:rgba(255,255,255,0.6);font-size:0.9rem;">
+    &copy; 2026 Nilora Organics. All rights reserved. | Made with ❤️ in India
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

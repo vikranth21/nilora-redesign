@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — Nilora Organics</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { background: #0f0c2e; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+
+  /* ── BRAND HEADER ── */
+  .al-brand {
+    text-align: center; margin-bottom: 36px;
+  }
+  .al-logo {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.7rem; font-weight: 700; color: white; margin-bottom: 4px;
+  }
+  .al-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.55); font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 40px; margin-top: 8px;
+  }
+  .al-badge-dot { width: 6px; height: 6px; background: #f59e0b; border-radius: 50%; }
+
+  /* ── CARD ── */
+  .al-card {
+    background: white; border-radius: 20px; padding: 40px 40px 36px;
+    width: 100%; max-width: 420px; box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  }
+  .al-card-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.5rem; font-weight: 700; color: #1e1b5e;
+    margin-bottom: 4px;
+  }
+  .al-card-sub { font-size: 0.82rem; color: #9ca3af; margin-bottom: 28px; }
+
+  .al-label { font-size: 0.78rem; font-weight: 600; color: #4b5563; display: block; margin-bottom: 6px; margin-top: 18px; }
+  .al-label:first-of-type { margin-top: 0; }
+
+  .al-input {
+    width: 100%; padding: 12px 15px; border: 1.5px solid #e5e7eb; border-radius: 9px;
+    font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #1a1a1a; outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s; background: #fafafa;
+  }
+  .al-input:focus { border-color: #3730a3; box-shadow: 0 0 0 3px rgba(55,48,163,0.1); background: white; }
+
+  .pw-wrap { position: relative; }
+  .pw-wrap .al-input { padding-right: 44px; }
+  .pw-eye {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; color: #9ca3af;
+    font-size: 1rem; padding: 0; transition: color 0.2s;
+  }
+  .pw-eye:hover { color: #3730a3; }
+
+  .al-row { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+  .remember-row { display: flex; align-items: center; gap: 8px; }
+  .remember-row input { accent-color: #3730a3; width: 15px; height: 15px; cursor: pointer; }
+  .remember-row label { font-size: 0.8rem; color: #4b5563; cursor: pointer; }
+
+  .al-submit {
+    width: 100%; padding: 14px; margin-top: 24px;
+    background: linear-gradient(135deg, #1e1b5e, #3730a3);
+    color: white; border: none; border-radius: 9px;
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: all 0.25s; letter-spacing: 0.02em;
+  }
+  .al-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(55,48,163,0.45); }
+  .al-submit:active { transform: none; }
+  .al-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* Security notice */
+  .al-security {
+    display: flex; align-items: center; gap: 8px;
+    background: #fefce8; border: 1px solid #fde68a;
+    border-radius: 8px; padding: 10px 14px; margin-top: 20px;
+    font-size: 0.78rem; color: #92400e;
+  }
+  .al-security svg { flex-shrink: 0; }
+
+  /* Error message */
+  .al-error {
+    background: #fef2f2; border: 1px solid #fca5a5;
+    border-radius: 8px; padding: 10px 14px; margin-top: 14px;
+    font-size: 0.82rem; color: #b91c1c; display: none;
+  }
+  .al-error.show { display: block; }
+
+  /* Loading state */
+  .spinner {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4); border-top-color: white;
+    border-radius: 50%; animation: spin 0.65s linear infinite; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Footer links */
+  .al-footer { text-align: center; margin-top: 28px; }
+  .al-footer a { color: rgba(255,255,255,0.45); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; margin: 0 10px; }
+  .al-footer a:hover { color: rgba(255,255,255,0.8); }
+
+  /* Forgot link */
+  .al-forgot { font-size: 0.78rem; color: #6366f1; text-decoration: none; transition: color 0.2s; }
+  .al-forgot:hover { color: #3730a3; }
+
+  /* TOAST */
+  #toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(8px);
+    background: #1e1b5e; color: white; padding: 12px 24px; border-radius: 40px;
+    font-size: 0.875rem; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.35s;
+  }
+  #toast.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+  /* Attempts counter */
+  .al-attempts { font-size: 0.75rem; color: #9ca3af; text-align: center; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div id="toast"></div>
+
+<!-- Brand -->
+<div class="al-brand">
+  <div class="al-logo">Nilora Organics</div>
+  <div class="al-badge">
+    <span class="al-badge-dot"></span>
+    Admin Portal
+  </div>
+</div>
+
+<!-- Card -->
+<div class="al-card">
+  <div class="al-card-title">Administrator Login</div>
+  <div class="al-card-sub">Restricted access — authorised personnel only.</div>
+
+  <span class="al-label">Admin Email</span>
+  <input type="email" class="al-input" id="adminEmail" placeholder="admin@niloraorganics.com" autocomplete="username">
+
+  <span class="al-label">Password</span>
+  <div class="pw-wrap">
+    <input type="password" class="al-input" id="adminPw" placeholder="Enter your secure password" autocomplete="current-password">
+    <button class="pw-eye" onclick="togglePw()" type="button" id="pwEye">👁</button>
+  </div>
+
+  <div class="al-error" id="alError">Incorrect email or password. Please try again.</div>
+
+  <div class="al-row">
+    <div class="remember-row">
+      <input type="checkbox" id="remember">
+      <label for="remember">Keep me signed in</label>
+    </div>
+    <a href="#" class="al-forgot" onclick="handleForgot(event)">Forgot password?</a>
+  </div>
+
+  <button class="al-submit" id="alSubmit" onclick="handleAdminLogin()">Sign In to Dashboard</button>
+
+  <div class="al-attempts" id="attemptsNote"></div>
+
+  <div class="al-security">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    This session is encrypted and monitored for security.
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="al-footer">
+  <a href="index.html">← Customer Store</a>
+  <a href="login.html">User Login</a>
+  <a href="#">Privacy Policy</a>
+</div>
+
+<script>
+let attempts = 0;
+const MAX_ATTEMPTS = 5;
+let lockoutUntil = null;
+
+// DEMO credentials — replace with real auth
+const ADMIN_EMAIL = 'admin@niloraorganics.com';
+const ADMIN_PW    = 'Nilora@2026';
+
+function toast(msg, err=false) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.background = err ? '#b91c1c' : '#1e1b5e';
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+function togglePw() {
+  const inp = document.getElementById('adminPw');
+  const btn = document.getElementById('pwEye');
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+  else { inp.type = 'password'; btn.textContent = '👁'; }
+}
+
+function handleAdminLogin() {
+  // Lockout check
+  if (lockoutUntil && Date.now() < lockoutUntil) {
+    const secs = Math.ceil((lockoutUntil - Date.now()) / 1000);
+    toast('Too many attempts. Try again in ' + secs + 's', true);
+    return;
+  }
+
+  const email = document.getElementById('adminEmail').value.trim();
+  const pw    = document.getElementById('adminPw').value;
+  const err   = document.getElementById('alError');
+  const btn   = document.getElementById('alSubmit');
+
+  err.classList.remove('show');
+
+  if (!email || !pw) { toast('Please enter your email and password', true); return; }
+
+  // Loading state
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Verifying…';
+
+  setTimeout(() => {
+    if (email === ADMIN_EMAIL && pw === ADMIN_PW) {
+      attempts = 0;
+      btn.innerHTML = '✓ Access Granted';
+      btn.style.background = '#166534';
+      toast('✓ Welcome back, Admin! Redirecting to dashboard…');
+      sessionStorage.setItem('nilora_admin', 'authenticated');
+      setTimeout(() => window.location.href = 'admin.html', 1600);
+    } else {
+      attempts++;
+      btn.disabled = false;
+      btn.innerHTML = 'Sign In to Dashboard';
+      err.classList.add('show');
+
+      const left = MAX_ATTEMPTS - attempts;
+      if (left > 0) {
+        document.getElementById('attemptsNote').textContent = left + ' attempt' + (left===1?'':'s') + ' remaining before temporary lockout.';
+      }
+
+      if (attempts >= MAX_ATTEMPTS) {
+        lockoutUntil = Date.now() + 60000; // 60s lockout
+        btn.disabled = true;
+        err.textContent = 'Too many failed attempts. Locked for 60 seconds.';
+        document.getElementById('attemptsNote').textContent = '';
+        let countdown = 60;
+        const t = setInterval(() => {
+          countdown--;
+          btn.innerHTML = 'Locked (' + countdown + 's)';
+          if (countdown <= 0) {
+            clearInterval(t);
+            btn.disabled = false;
+            btn.innerHTML = 'Sign In to Dashboard';
+            err.textContent = 'Incorrect email or password. Please try again.';
+            err.classList.remove('show');
+            attempts = 0;
+            lockoutUntil = null;
+            document.getElementById('attemptsNote').textContent = '';
+          }
+        }, 1000);
+      }
+    }
+  }, 1000);
+}
+
+function handleForgot(e) {
+  e.preventDefault();
+  const email = document.getElementById('adminEmail').value.trim();
+  if (!email) { toast('Enter your admin email above first', true); return; }
+  toast('✓ Password reset instructions sent to ' + email);
+}
+
+// Enter key support
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && (document.activeElement.id === 'adminEmail' || document.activeElement.id === 'adminPw')) {
+    handleAdminLogin();
+  }
+});
+</script>
+</body>
+</html>

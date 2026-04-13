@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Nilora Organics</title>
 <link rel="stylesheet" href="styles.css">
+<script src="store.js"></script>
 </head>
 <body class="admin-body">
 <script>
@@ -89,22 +90,24 @@
       <!-- OVERVIEW -->
       <div id="tab-overview" class="tab-view active">
         <div class="stats-row">
-          <div class="stat-box"><div class="stat-box-icon">Total Orders</div><div class="stat-box-val">148</div><div class="stat-box-delta delta-up">↑ +12% this week</div></div>
-          <div class="stat-box"><div class="stat-box-icon">Revenue</div><div class="stat-box-val">₹1.32L</div><div class="stat-box-delta delta-up">↑ +8% vs last month</div></div>
-          <div class="stat-box"><div class="stat-box-icon">AI Queries</div><div class="stat-box-val">842</div><div class="stat-box-delta delta-up">73% converted</div></div>
-          <div class="stat-box"><div class="stat-box-icon">Conversion</div><div class="stat-box-val">4.2%</div><div class="stat-box-delta delta-neutral">Industry avg 2.1%</div></div>
+          <div class="stat-box"><div class="stat-box-icon">Total Orders</div><div class="stat-box-val" id="statOrders">0</div><div class="stat-box-delta delta-up" id="statOrdersNote">From your store</div></div>
+          <div class="stat-box"><div class="stat-box-icon">Revenue</div><div class="stat-box-val" id="statRevenue">₹0</div><div class="stat-box-delta delta-up" id="statRevenueNote">All time</div></div>
+          <div class="stat-box"><div class="stat-box-icon">Subscribers</div><div class="stat-box-val" id="statSubs">0</div><div class="stat-box-delta delta-up">Newsletter signups</div></div>
+          <div class="stat-box"><div class="stat-box-icon">Avg Order Value</div><div class="stat-box-val" id="statAOV">₹0</div><div class="stat-box-delta delta-neutral">Per order</div></div>
         </div>
         <div class="a-card">
           <div class="a-card-title">Recent Orders</div>
-          <div class="a-card-sub">Latest transactions from your store</div>
+          <div class="a-card-sub">Latest transactions placed on your store</div>
           <table class="a-table">
-            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Amount</th><th>Payment</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>NLR-AB12CD</td><td>Priya S.</td><td>Blue Tea 100g Pack</td><td>₹749</td><td>UPI</td><td><span class="badge badge-green">Shipped</span></td></tr>
-              <tr><td>NLR-XY98ZW</td><td>Arjun M.</td><td>Peppermint Combo</td><td>₹899</td><td>COD</td><td><span class="badge badge-amber">Processing</span></td></tr>
-              <tr><td>NLR-MN44PQ</td><td>Sneha R.</td><td>Blue Tea 150g Pack</td><td>₹1,099</td><td>Card</td><td><span class="badge badge-blue">Delivered</span></td></tr>
-            </tbody>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Amount</th><th>Payment</th><th>Date</th><th>Status</th><th></th></tr></thead>
+            <tbody id="overviewOrdersBody"><tr><td colspan="8" style="text-align:center;color:var(--gray-400);padding:24px;">No orders yet. They'll appear here once customers place orders.</td></tr></tbody>
           </table>
+        </div>
+        <div class="a-card">
+          <div class="a-card-title">Newsletter Subscribers</div>
+          <div class="a-card-sub" id="subCount">0 subscribers</div>
+          <div id="subList" style="font-size:0.875rem;color:var(--gray-600);">No subscribers yet.</div>
+          <button class="btn btn-outline btn-sm" style="margin-top:14px;" onclick="exportSubscribers()">Export CSV</button>
         </div>
       </div>
 
@@ -114,22 +117,23 @@
           <div class="a-card-title">Hero Section</div>
           <div class="a-card-sub">Edit the main banner text shown to visitors</div>
           <span class="a-label">Headline</span>
-          <input type="text" class="a-input" value="Nature's Most Beautiful Tea.">
+          <input type="text" class="a-input" id="adminHeroTitle">
           <span class="a-label">Sub-headline</span>
-          <input type="text" class="a-input" value="Butterfly Pea Flower Blue Tea — naturally caffeine-free and rich in antioxidants.">
+          <input type="text" class="a-input" id="adminHeroSub">
           <span class="a-label">Primary Button Text</span>
-          <input type="text" class="a-input" value="Shop Now">
-          <button class="btn btn-primary" onclick="save('Hero')">Save Changes</button>
+          <input type="text" class="a-input" id="adminHeroCta">
+          <button class="btn btn-primary" onclick="saveHero()">Save &amp; Apply to Store</button>
         </div>
         <div class="a-card">
           <div class="a-card-title">Section Visibility</div>
           <div class="a-card-sub">Show or hide sections on the homepage</div>
-          <div class="setting-row"><div class="setting-row-info"><strong>Benefits Section</strong><small>The 4 benefit cards (antioxidants, caffeine-free…)</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
-          <div class="setting-row"><div class="setting-row-info"><strong>Products / Shop Section</strong><small>Blue Tea and Peppermint Combo cards</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
-          <div class="setting-row"><div class="setting-row-info"><strong>Community / Reels Section</strong><small>Instagram reel wall and social proof</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
-          <div class="setting-row"><div class="setting-row-info"><strong>Our Story Section</strong><small>Brand narrative with image</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
-          <div class="setting-row"><div class="setting-row-info"><strong>Newsletter Section</strong><small>Email capture with wellness guide offer</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
-          <button class="btn btn-primary" style="margin-top:18px;" onclick="save('Section visibility')">Save</button>
+          <div class="setting-row"><div class="setting-row-info"><strong>Benefits Section</strong><small>The 4 benefit cards</small></div><label class="toggle-wrap"><input type="checkbox" id="secBenefits" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Products / Shop Section</strong><small>Blue Tea and Peppermint Combo cards</small></div><label class="toggle-wrap"><input type="checkbox" id="secProducts" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Community / Reels Section</strong><small>Instagram reel wall</small></div><label class="toggle-wrap"><input type="checkbox" id="secReels" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Our Story Section</strong><small>Brand narrative with image</small></div><label class="toggle-wrap"><input type="checkbox" id="secStory" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Testimonials Section</strong><small>Customer reviews</small></div><label class="toggle-wrap"><input type="checkbox" id="secTestimonials" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Newsletter Section</strong><small>Email capture</small></div><label class="toggle-wrap"><input type="checkbox" id="secNewsletter" checked><span class="toggle-track"></span></label></div>
+          <button class="btn btn-primary" style="margin-top:18px;" onclick="saveSections()">Save &amp; Apply to Store</button>
         </div>
       </div>
 
@@ -137,24 +141,24 @@
       <div id="tab-products" class="tab-view">
         <div class="a-card">
           <div class="a-card-title">Blue Tea — Pricing</div>
-          <div class="a-card-sub">Update sale price and original price per variant</div>
+          <div class="a-card-sub">Update sale and original price per variant</div>
           <div class="a-grid-3" style="gap:12px;">
-            <div><span class="a-label">50g Sale Price</span><input type="number" class="a-input" value="449"></div>
-            <div><span class="a-label">100g Pack Sale Price</span><input type="number" class="a-input" value="749"></div>
-            <div><span class="a-label">150g Pack Sale Price</span><input type="number" class="a-input" value="1099"></div>
-            <div><span class="a-label">50g Original Price</span><input type="number" class="a-input" value="599"></div>
-            <div><span class="a-label">100g Original Price</span><input type="number" class="a-input" value="999"></div>
-            <div><span class="a-label">150g Original Price</span><input type="number" class="a-input" value="1499"></div>
+            <div><span class="a-label">50g Sale Price (₹)</span><input type="number" class="a-input" id="price50"></div>
+            <div><span class="a-label">100g Pack Sale Price (₹)</span><input type="number" class="a-input" id="price100"></div>
+            <div><span class="a-label">150g Pack Sale Price (₹)</span><input type="number" class="a-input" id="price150"></div>
+            <div><span class="a-label">50g Original Price (₹)</span><input type="number" class="a-input" id="was50"></div>
+            <div><span class="a-label">100g Original Price (₹)</span><input type="number" class="a-input" id="was100"></div>
+            <div><span class="a-label">150g Original Price (₹)</span><input type="number" class="a-input" id="was150"></div>
           </div>
-          <button class="btn btn-primary" onclick="save('Blue Tea pricing')">Save Pricing</button>
+          <button class="btn btn-primary" onclick="saveProducts()">Save &amp; Apply to Store</button>
         </div>
         <div class="a-card">
           <div class="a-card-title">Peppermint Combo — Pricing</div>
           <div class="a-grid-2" style="gap:12px;">
-            <div><span class="a-label">Sale Price</span><input type="number" class="a-input" value="899"></div>
-            <div><span class="a-label">Original Price</span><input type="number" class="a-input" value="1199"></div>
+            <div><span class="a-label">Sale Price (₹)</span><input type="number" class="a-input" id="priceCombo"></div>
+            <div><span class="a-label">Original Price (₹)</span><input type="number" class="a-input" id="wasCombo"></div>
           </div>
-          <button class="btn btn-primary" onclick="save('Combo pricing')">Save Pricing</button>
+          <button class="btn btn-primary" onclick="saveProducts()">Save &amp; Apply to Store</button>
         </div>
       </div>
 
@@ -163,10 +167,11 @@
         <div class="a-card">
           <div class="a-card-title">Payment Methods</div>
           <div class="a-card-sub">Enable or disable payment options shown at checkout</div>
-          <div class="svc-card enabled"><div class="svc-left"><div class="svc-icon">💡</div><div><div class="svc-name">UPI / QR Code</div><div class="svc-desc">PhonePe, Paytm, Google Pay, BHIM</div></div></div><label class="toggle-wrap"><input type="checkbox" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
-          <div class="svc-card enabled"><div class="svc-left"><div class="svc-icon">💳</div><div><div class="svc-name">Credit / Debit Card</div><div class="svc-desc">Visa, Mastercard, RuPay</div></div></div><label class="toggle-wrap"><input type="checkbox" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
-          <div class="svc-card enabled"><div class="svc-left"><div class="svc-icon">📦</div><div><div class="svc-name">Cash on Delivery</div><div class="svc-desc">Pay when the order arrives</div></div></div><label class="toggle-wrap"><input type="checkbox" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
-          <div class="svc-card"><div class="svc-left"><div class="svc-icon">🏦</div><div><div class="svc-name">Net Banking</div><div class="svc-desc">All major Indian banks</div></div></div><label class="toggle-wrap"><input type="checkbox" onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-card enabled" id="payUpiCard"><div class="svc-left"><div class="svc-icon">💡</div><div><div class="svc-name">UPI / QR Code</div><div class="svc-desc">PhonePe, Paytm, Google Pay, BHIM</div></div></div><label class="toggle-wrap"><input type="checkbox" id="payUpi" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-card enabled" id="payCardCard"><div class="svc-left"><div class="svc-icon">💳</div><div><div class="svc-name">Credit / Debit Card</div><div class="svc-desc">Visa, Mastercard, RuPay</div></div></div><label class="toggle-wrap"><input type="checkbox" id="payCard" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-card enabled" id="payCodCard"><div class="svc-left"><div class="svc-icon">📦</div><div><div class="svc-name">Cash on Delivery</div><div class="svc-desc">Pay when the order arrives</div></div></div><label class="toggle-wrap"><input type="checkbox" id="payCod" checked onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <div class="svc-card" id="payNbCard"><div class="svc-left"><div class="svc-icon">🏦</div><div><div class="svc-name">Net Banking</div><div class="svc-desc">All major Indian banks</div></div></div><label class="toggle-wrap"><input type="checkbox" id="payNetbanking" onchange="this.closest('.svc-card').classList.toggle('enabled',this.checked)"><span class="toggle-track"></span></label></div>
+          <button class="btn btn-primary" style="margin-top:16px;" onclick="savePayments()">Save &amp; Apply to Checkout</button>
         </div>
         <div class="a-card">
           <div class="a-card-title">Razorpay Gateway</div>
@@ -246,15 +251,13 @@
       <div id="tab-testimonials" class="tab-view">
         <div class="a-card">
           <div class="a-card-title">Manage Testimonials</div>
-          <div id="testimonialList">
-            <div style="padding:16px;border:1px solid var(--gray-200);border-radius:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><strong>⭐⭐⭐⭐⭐ Priya Sharma</strong><button class="btn btn-outline btn-sm" onclick="this.closest('div[style]').remove()">Delete</button></div><p style="font-size:0.875rem;color:var(--gray-600);">The blue tea is absolutely magical! I've been sleeping so much better since I started drinking it every night.</p></div>
-            <div style="padding:16px;border:1px solid var(--gray-200);border-radius:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><strong>⭐⭐⭐⭐⭐ Meera Jain</strong><button class="btn btn-outline btn-sm" onclick="this.closest('div[style]').remove()">Delete</button></div><p style="font-size:0.875rem;color:var(--gray-600);">My skin is visibly glowing after 3 weeks. Will definitely reorder!</p></div>
-          </div>
+          <div class="a-card-sub">These appear in the Testimonials section on the homepage</div>
+          <div id="testimonialList"></div>
           <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-100);">
             <div class="a-card-title" style="margin-bottom:14px;">Add New</div>
-            <div class="a-grid-2"><div><span class="a-label">Name</span><input type="text" class="a-input" id="tName"></div><div><span class="a-label">Rating (1–5)</span><input type="number" class="a-input" id="tRating" value="5" min="1" max="5"></div></div>
+            <div class="a-grid-2"><div><span class="a-label">Customer Name</span><input type="text" class="a-input" id="tName"></div><div><span class="a-label">Rating (1–5)</span><input type="number" class="a-input" id="tRating" value="5" min="1" max="5"></div></div>
             <span class="a-label">Review Text</span><textarea class="a-textarea" id="tText" rows="3"></textarea>
-            <button class="btn btn-primary" onclick="addTestimonial()">Add Testimonial</button>
+            <button class="btn btn-primary" onclick="addTestimonial()">Add &amp; Save to Store</button>
           </div>
         </div>
       </div>
@@ -264,17 +267,13 @@
         <div class="a-card">
           <div class="a-card-title">All Orders</div>
           <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
-            <input type="text" class="a-input" style="margin:0;flex:1;min-width:180px;" placeholder="Search order ID or customer…">
-            <select class="a-select" style="margin:0;width:auto;"><option>All</option><option>Processing</option><option>Shipped</option><option>Delivered</option></select>
-            <button class="btn btn-outline btn-sm" onclick="save('CSV exported')">Export CSV</button>
+            <input type="text" class="a-input" style="margin:0;flex:1;min-width:180px;" id="orderSearch" placeholder="Search order ID or customer…" oninput="filterOrders(this.value)">
+            <select class="a-select" style="margin:0;width:auto;" id="orderFilter" onchange="filterOrders()"><option value="">All</option><option value="Processing">Processing</option><option value="Shipped">Shipped</option><option value="Delivered">Delivered</option></select>
+            <button class="btn btn-outline btn-sm" onclick="exportOrders()">Export CSV</button>
           </div>
           <table class="a-table">
-            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Amount</th><th>Payment</th><th>Courier</th><th>Status</th><th></th></tr></thead>
-            <tbody>
-              <tr><td>NLR-AB12CD</td><td>Priya S.</td><td>Blue Tea 100g</td><td>₹749</td><td>UPI</td><td>Shiprocket</td><td><span class="badge badge-green">Shipped</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
-              <tr><td>NLR-XY98ZW</td><td>Arjun M.</td><td>Peppermint Combo</td><td>₹899</td><td>COD</td><td>Delhivery</td><td><span class="badge badge-amber">Processing</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
-              <tr><td>NLR-MN44PQ</td><td>Sneha R.</td><td>Blue Tea 150g</td><td>₹1,099</td><td>Card</td><td>Bluedart</td><td><span class="badge badge-blue">Delivered</span></td><td><button class="btn btn-outline btn-sm">View</button></td></tr>
-            </tbody>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Amount</th><th>Payment</th><th>Date</th><th>Status</th><th></th></tr></thead>
+            <tbody id="ordersTableBody"><tr><td colspan="8" style="text-align:center;color:var(--gray-400);padding:24px;">No orders yet.</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -295,23 +294,16 @@
       <div id="tab-ai" class="tab-view">
         <div class="a-card">
           <div class="a-card-title">AI Assistant Controls</div>
-          <div class="setting-row"><div class="setting-row-info"><strong>AI Guide Active</strong><small>Show the AI Wellness Guide button on the storefront</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
-          <div class="setting-row"><div class="setting-row-info"><strong>Show Add-to-Cart in Responses</strong><small>Allow the AI to include cart buttons in its answers</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
-          <div class="setting-row"><div class="setting-row-info"><strong>Smart AI-Powered Search</strong><small>Use semantic search instead of exact keyword matching</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>AI Guide Active</strong><small>Show the AI Wellness Guide on the storefront</small></div><label class="toggle-wrap"><input type="checkbox" id="aiActiveToggle" checked><span class="toggle-track"></span></label></div>
+          <div class="setting-row"><div class="setting-row-info"><strong>Show Add-to-Cart in Responses</strong><small>AI includes cart buttons in answers</small></div><label class="toggle-wrap"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+          <button class="btn btn-primary" style="margin-top:12px;" onclick="saveAI()">Save &amp; Apply to Store</button>
         </div>
         <div class="a-card">
           <div class="a-card-title">Training Rules</div>
           <div class="a-card-sub">Each line defines what the AI recommends based on what users say</div>
-          <textarea class="a-textarea" rows="9">
-sleep / calm / relax → Blue Tea 50g (₹449)
-skin / glow / radiant → Blue Tea 100g Pack of 2 (₹749)
-stress / anxiety → Peppermint + Blue Tea Combo (₹899)
-digestion / gut / bloat → Peppermint + Blue Tea Combo (₹899)
-best value / budget → Blue Tea 150g Pack of 3 (₹1099)
-          </textarea>
+          <textarea class="a-textarea" rows="7" id="aiRulesText"></textarea>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
-            <button class="btn btn-primary" onclick="save('AI rules deployed')">Deploy to Store</button>
-            <button class="btn btn-outline" onclick="save('AI generating…')">Generate with AI Copilot</button>
+            <button class="btn btn-primary" onclick="saveAI()">Deploy to Store</button>
           </div>
         </div>
       </div>
@@ -321,49 +313,325 @@ best value / budget → Blue Tea 150g Pack of 3 (₹1099)
 </div>
 
 <script>
+// ─── ADMIN LOGOUT ───
 function adminLogout() {
   if (confirm('Sign out of the admin dashboard?')) {
     sessionStorage.removeItem('nilora_admin');
     window.location.href = 'admin-login.html';
   }
 }
+
+// ─── TOAST ───
 function toast(msg, err=false) {
-  const el=document.getElementById('toast');
-  el.textContent=msg; el.style.background=err?'#b91c1c':'#1a3a2a';
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.background = err ? '#b91c1c' : '#1e1b5e';
   el.classList.add('show'); clearTimeout(el._t);
-  el._t=setTimeout(()=>el.classList.remove('show'),3000);
+  el._t = setTimeout(() => el.classList.remove('show'), 3000);
 }
-const titles={overview:'Overview',content:'Page Content',products:'Products',payments:'Payments',courier:'Courier Services',reels:'Instagram Reels',testimonials:'Testimonials',orders:'Orders',seo:'SEO Settings',ai:'AI Assistant'};
+
+// ─── NAVIGATION ───
+const titles = {overview:'Overview',content:'Page Content',products:'Products',payments:'Payments',courier:'Courier Services',reels:'Instagram Reels',testimonials:'Testimonials',orders:'Orders',seo:'SEO Settings',ai:'AI Assistant'};
 function go(id, btn) {
-  document.querySelectorAll('.tab-view').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelectorAll('.tab-view').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
-  document.getElementById('pageTitle').textContent = titles[id]||id;
+  document.getElementById('pageTitle').textContent = titles[id] || id;
+  if (id === 'orders') renderOrders();
+  if (id === 'overview') renderStats();
 }
-function save(label) { toast(label + ' saved successfully'); }
-function toggle(id, on) { const el=document.getElementById(id); if(el) el.style.display=on?'block':'none'; }
-function addReel() {
-  const url=document.getElementById('newReelUrl').value.trim();
-  if(!url) { toast('Enter a reel URL first', true); return; }
-  const row=document.createElement('div'); row.className='reel-row';
-  row.innerHTML=`<img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=80&h=80" class="reel-thumb" alt="New"><div class="reel-info"><strong>New Reel</strong><small>${url}</small></div><span class="badge badge-amber">Pending</span><button class="btn btn-outline btn-sm" style="margin-left:8px;" onclick="this.closest('.reel-row').remove()">Remove</button>`;
-  document.getElementById('reelsList').appendChild(row);
-  document.getElementById('newReelUrl').value='';
-  toast('Reel added. Connect Instagram to show live video.');
+
+function toggle(id, on) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = on ? 'block' : 'none';
 }
+
+// ─── LOAD FROM STORE ───
+function loadFromStore() {
+  const s = NiloraStore.get();
+
+  // Hero
+  if (s.hero) {
+    setVal('adminHeroTitle', s.hero.title);
+    setVal('adminHeroSub',   s.hero.subtitle);
+    setVal('adminHeroCta',   s.hero.cta);
+  }
+
+  // Section visibility
+  setChk('secBenefits',     s.sections.benefits);
+  setChk('secProducts',     s.sections.products);
+  setChk('secReels',        s.sections.reels);
+  setChk('secStory',        s.sections.story);
+  setChk('secTestimonials', s.sections.testimonials);
+  setChk('secNewsletter',   s.sections.newsletter);
+
+  // Products
+  const bv = s.products.blue.variants;
+  setVal('price50',  bv[0].price); setVal('was50',  bv[0].was);
+  setVal('price100', bv[1].price); setVal('was100', bv[1].was);
+  setVal('price150', bv[2].price); setVal('was150', bv[2].was);
+  setVal('priceCombo', s.products.combo.price);
+  setVal('wasCombo',   s.products.combo.was);
+
+  // Payments
+  setChk('payUpi',        s.payments.upi);
+  setChk('payCard',       s.payments.card);
+  setChk('payCod',        s.payments.cod);
+  setChk('payNetbanking', s.payments.netbanking);
+  ['payUpi','payCard','payCod','payNetbanking'].forEach(k => {
+    const cb = document.getElementById(k);
+    if (cb) cb.closest('.svc-card').classList.toggle('enabled', cb.checked);
+  });
+
+  // AI
+  setChk('aiActiveToggle', s.aiActive);
+  setVal('aiRulesText', s.aiRules);
+
+  // Testimonials
+  renderAdminTestimonials(s.testimonials);
+
+  // Stats + orders
+  renderStats();
+  renderOrders();
+}
+
+function setVal(id, val) {
+  const el = document.getElementById(id);
+  if (el && val !== undefined) el.value = val;
+}
+function setChk(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.checked = val !== false;
+}
+function getVal(id) { return document.getElementById(id)?.value || ''; }
+function getChk(id) { return document.getElementById(id)?.checked !== false; }
+
+// ─── SAVE FUNCTIONS ───
+function saveHero() {
+  NiloraStore.set({ hero: {
+    title:    getVal('adminHeroTitle'),
+    subtitle: getVal('adminHeroSub'),
+    cta:      getVal('adminHeroCta')
+  }});
+  toast('✓ Hero section updated on store');
+}
+
+function saveSections() {
+  NiloraStore.set({ sections: {
+    benefits:     getChk('secBenefits'),
+    products:     getChk('secProducts'),
+    reels:        getChk('secReels'),
+    story:        getChk('secStory'),
+    testimonials: getChk('secTestimonials'),
+    newsletter:   getChk('secNewsletter')
+  }});
+  toast('✓ Section visibility applied to store');
+}
+
+function saveProducts() {
+  const s = NiloraStore.get();
+  const bv = s.products.blue.variants;
+  bv[0].price = +getVal('price50');  bv[0].was = +getVal('was50');
+  bv[1].price = +getVal('price100'); bv[1].was = +getVal('was100');
+  bv[2].price = +getVal('price150'); bv[2].was = +getVal('was150');
+  NiloraStore.set({
+    products: {
+      blue:  { variants: bv },
+      combo: { name: s.products.combo.name, price: +getVal('priceCombo'), was: +getVal('wasCombo') }
+    }
+  });
+  toast('✓ Prices updated on store');
+}
+
+function savePayments() {
+  NiloraStore.set({ payments: {
+    upi:        getChk('payUpi'),
+    card:       getChk('payCard'),
+    cod:        getChk('payCod'),
+    netbanking: getChk('payNetbanking')
+  }});
+  toast('✓ Payment methods updated in checkout');
+}
+
+function saveAI() {
+  NiloraStore.set({
+    aiActive: getChk('aiActiveToggle'),
+    aiRules:  getVal('aiRulesText')
+  });
+  toast('✓ AI settings applied to store');
+}
+
+function save(label) {
+  toast('✓ ' + label + ' saved');
+}
+
+// ─── RENDER TESTIMONIALS (Admin) ───
+function renderAdminTestimonials(list) {
+  const el = document.getElementById('testimonialList');
+  if (!el) return;
+  if (!list || !list.length) { el.innerHTML = '<p style="color:var(--gray-400);font-size:0.875rem;">No testimonials yet.</p>'; return; }
+  el.innerHTML = list.map((t, i) => `
+    <div style="padding:16px;border:1px solid var(--gray-200);border-radius:10px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <strong>${'⭐'.repeat(t.rating)} ${t.name}</strong>
+        <button class="btn btn-outline btn-sm" onclick="deleteTestimonial(${i})">Delete</button>
+      </div>
+      <p style="font-size:0.875rem;color:var(--gray-600);">${t.text}</p>
+    </div>
+  `).join('');
+}
+
 function addTestimonial() {
-  const name=document.getElementById('tName').value.trim();
-  const text=document.getElementById('tText').value.trim();
-  const rating=Math.min(5,Math.max(1,parseInt(document.getElementById('tRating').value)||5));
-  if(!name||!text) { toast('Fill in name and review', true); return; }
-  const d=document.createElement('div');
-  d.style='padding:16px;border:1px solid var(--gray-200);border-radius:10px;margin-bottom:10px;';
-  d.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><strong>${'⭐'.repeat(rating)} ${name}</strong><button class="btn btn-outline btn-sm" onclick="this.closest('div[style]').remove()">Delete</button></div><p style="font-size:0.875rem;color:var(--gray-600);">${text}</p>`;
-  document.getElementById('testimonialList').appendChild(d);
-  document.getElementById('tName').value=''; document.getElementById('tText').value='';
-  toast('Testimonial added');
+  const name   = getVal('tName').trim();
+  const text   = getVal('tText').trim();
+  const rating = Math.min(5, Math.max(1, parseInt(getVal('tRating')) || 5));
+  if (!name || !text) { toast('Fill in name and review', true); return; }
+  const s = NiloraStore.get();
+  s.testimonials.push({ name, text, rating });
+  NiloraStore.set({ testimonials: s.testimonials });
+  renderAdminTestimonials(s.testimonials);
+  document.getElementById('tName').value = '';
+  document.getElementById('tText').value = '';
+  toast('✓ Testimonial added and shown on store');
 }
+
+function deleteTestimonial(i) {
+  const s = NiloraStore.get();
+  s.testimonials.splice(i, 1);
+  NiloraStore.set({ testimonials: s.testimonials });
+  renderAdminTestimonials(s.testimonials);
+  toast('Testimonial removed');
+}
+
+// ─── RENDER REELS (Admin) ───
+function addReel() {
+  const url = getVal('newReelUrl').trim();
+  if (!url) { toast('Enter a reel URL or username', true); return; }
+  const username = url.startsWith('@') ? url : '@' + url.replace(/.*instagram.com\//,'').split('/')[0];
+  const s = NiloraStore.get();
+  s.reels.push({
+    username,
+    views: 'New',
+    img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=400&h=700&q=80'
+  });
+  NiloraStore.set({ reels: s.reels });
+  document.getElementById('newReelUrl').value = '';
+  toast('✓ Reel added to store homepage');
+}
+
+// ─── RENDER STATS (Overview) ───
+function renderStats() {
+  const s = NiloraStore.get();
+  const orders = s.orders || [];
+  const revenue = orders.reduce((a, o) => a + (o.total || 0), 0);
+  const aov = orders.length ? Math.round(revenue / orders.length) : 0;
+
+  setText('statOrders', orders.length);
+  setText('statRevenue', '₹' + revenue.toLocaleString('en-IN'));
+  setText('statSubs', (s.subscribers || []).length);
+  setText('statAOV', '₹' + aov.toLocaleString('en-IN'));
+
+  // overview orders table
+  const ob = document.getElementById('overviewOrdersBody');
+  if (ob) {
+    if (!orders.length) {
+      ob.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--gray-400);padding:24px;">No orders yet. They\'ll appear here once customers place orders.</td></tr>';
+    } else {
+      ob.innerHTML = orders.slice(0,5).map(o => `
+        <tr>
+          <td><strong>${o.id}</strong></td>
+          <td>${o.customer}</td>
+          <td style="font-size:0.8rem;">${(o.items||[]).map(i=>i.name.split('—')[1]||i.name).join(', ')}</td>
+          <td>₹${(o.total||0).toLocaleString('en-IN')}</td>
+          <td>${o.payment}</td>
+          <td style="font-size:0.78rem;">${new Date(o.date).toLocaleDateString('en-IN')}</td>
+          <td><span class="badge badge-amber">${o.status}</span></td>
+          <td><button class="btn btn-outline btn-sm" onclick="markShipped('${o.id}')">Ship</button></td>
+        </tr>
+      `).join('');
+    }
+  }
+
+  // subscribers
+  const subList = document.getElementById('subList');
+  const subCount = document.getElementById('subCount');
+  if (subList && s.subscribers) {
+    subCount.textContent = s.subscribers.length + ' subscriber' + (s.subscribers.length!==1?'s':'');
+    subList.innerHTML = s.subscribers.length
+      ? s.subscribers.map(e => `<div style="padding:6px 0;border-bottom:1px solid var(--gray-100);font-size:0.875rem;">${e}</div>`).join('')
+      : 'No subscribers yet.';
+  }
+}
+
+// ─── RENDER ALL ORDERS (Orders Tab) ───
+let _allOrders = [];
+function renderOrders() {
+  _allOrders = NiloraStore.get().orders || [];
+  renderOrdersTable(_allOrders);
+}
+function filterOrders(q='') {
+  const filter = document.getElementById('orderFilter')?.value || '';
+  let list = _allOrders;
+  if (filter) list = list.filter(o => o.status === filter);
+  if (q)      list = list.filter(o => o.id.includes(q.toUpperCase()) || (o.customer||'').toLowerCase().includes(q.toLowerCase()));
+  renderOrdersTable(list);
+}
+function renderOrdersTable(orders) {
+  const tb = document.getElementById('ordersTableBody');
+  if (!tb) return;
+  if (!orders.length) {
+    tb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--gray-400);padding:24px;">No orders found.</td></tr>';
+    return;
+  }
+  tb.innerHTML = orders.map(o => `
+    <tr>
+      <td><strong>${o.id}</strong></td>
+      <td>${o.customer}<br><small style="color:var(--gray-400);">${o.email||''}</small></td>
+      <td style="font-size:0.8rem;">${(o.items||[]).map(i=>i.qty+'× '+i.name.split('—')[1]?.trim()).join('<br>')}</td>
+      <td>₹${(o.total||0).toLocaleString('en-IN')}</td>
+      <td>${o.payment}</td>
+      <td style="font-size:0.78rem;">${new Date(o.date).toLocaleDateString('en-IN')}</td>
+      <td><span class="badge badge-amber">${o.status}</span></td>
+      <td><button class="btn btn-outline btn-sm" onclick="markShipped('${o.id}')">Mark Shipped</button></td>
+    </tr>
+  `).join('');
+}
+
+function markShipped(orderId) {
+  const s = NiloraStore.get();
+  const o = s.orders.find(x => x.id === orderId);
+  if (o) { o.status = 'Shipped'; NiloraStore.set({ orders: s.orders }); }
+  renderOrders(); renderStats();
+  toast('✓ Order ' + orderId + ' marked as Shipped');
+}
+
+// ─── EXPORT ───
+function exportOrders() {
+  const s = NiloraStore.get();
+  const rows = ['Order ID,Customer,Email,Total,Payment,Date,Status'];
+  (s.orders||[]).forEach(o => rows.push(`${o.id},${o.customer},${o.email},${o.total},${o.payment},${new Date(o.date).toLocaleDateString('en-IN')},${o.status}`));
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(rows.join('\n'));
+  a.download = 'nilora-orders.csv'; a.click();
+  toast('✓ CSV exported');
+}
+function exportSubscribers() {
+  const s = NiloraStore.get();
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent('Email\n' + (s.subscribers||[]).join('\n'));
+  a.download = 'nilora-subscribers.csv'; a.click();
+  toast('✓ Subscribers exported');
+}
+
+function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
+
+// ─── INIT ───
+document.addEventListener('DOMContentLoaded', () => {
+  loadFromStore();
+  // Re-render if store updates in another tab
+  window.addEventListener('storage', loadFromStore);
+});
 </script>
 </body>
 </html>
